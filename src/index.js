@@ -8,8 +8,7 @@ import reportWebVitals from './reportWebVitals';
 ReactDOM.render(
     <BrowserRouter>
         <Routes>
-            <Route path='counters' element={<App />} />
-            {/* <Route path='/' element={<Home />} /> */}
+            <Route path='/' element={<App />} />
         </Routes>
     </BrowserRouter>,
     document.getElementById('root')
