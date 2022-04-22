@@ -2,19 +2,54 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: spartan;
+  src: url(./assets/fonts/Spartan-VariableFont_wght.ttf);
+  font-weight: 400;
+}
+@font-face {
+  font-family: spartan;
+  src: url(./assets/fonts/Spartan-VariableFont_wght.ttf);
+  font-weight: 600;
+}
+@font-face {
+  font-family: spartan;
+  src: url(./assets/fonts/Spartan-VariableFont_wght.ttf);
+  font-weight: 700;
+}
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: spartan, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  letter-spacing: -1px;
 }
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+td {
+  @apply align-middle text-center
 }
 .f-center {
   @apply flex justify-center items-center;
+}
+svg {
+  display: inline;
+}
+.display-drop-down-menu {
+  display: flex !important;
+  animation: name .2s forwards;
+}
+@keyframes name {
+  from {transform: scale(1,0);opacity: 0;}
+  to {transform: scale(1,1);opacity: 1;}
+}
+::-webkit-scrollbar {
+  width: 5px;
+  padding: 2px;
+}
+::-webkit-scrollbar-track {
+  @apply bg-opacity-10 bg-white dark:bg-mid-dark-blue;
+}
+::-webkit-scrollbar-thumb {
+  @apply dark:bg-white rounded-full bg-mid-dark-blue bg-opacity-80
 }

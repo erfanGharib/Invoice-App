@@ -5,7 +5,8 @@ const ThemeSwitcher = props => {
     const [IS_DARK_THEME, setTheme] = useState(false);
 
     const switchTheme = () => {
-        setTheme(IS_DARK_THEME ? false : true)
+        setTheme(IS_DARK_THEME ? false : true);
+        document.querySelector('html').classList.toggle('dark')
     }
 
     return (

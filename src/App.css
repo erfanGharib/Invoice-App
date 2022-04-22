@@ -2,11 +2,3 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-  font-family: commissioner;
-  src: url(assets/fonts/Commissioner-VariableFont_wght.ttf);
-}
-* {
-  font-family: commissioner;
-}
-

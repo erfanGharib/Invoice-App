@@ -4,14 +4,13 @@ module.exports = {
     './src/*.js',
     './*.js',
     './src/components/*.jsx',
-    './src/*.svg'
+    './src/*.svg',
+    './src/pages/**/**/*.{jsx,js}',
+    './src/pages/**/*.{jsx,js}',
+    './src/assets/icons/*svg'
   ],
-  content: [
-    './public/index.html',
-    './src/*.js',
-    './*.js',
-    './src/components/*.jsx'
-  ],
+  darkMode: 'class',
+  content: [],
   theme: {
     extend: {
       colors: {
@@ -28,6 +27,9 @@ module.exports = {
       minWidth: {
         20: '4.7rem'
       },
+      height: {
+        22: '5.5rem'
+      }
     },
   },
   plugins: [],
