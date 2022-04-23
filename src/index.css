@@ -27,7 +27,7 @@ body {
   letter-spacing: -1px;
 }
 td {
-  @apply align-middle text-center
+  @apply align-middle text-center w-auto
 }
 .f-center {
   @apply flex justify-center items-center;
@@ -48,8 +48,8 @@ svg {
   padding: 2px;
 }
 ::-webkit-scrollbar-track {
-  @apply bg-opacity-10 bg-white dark:bg-mid-dark-blue;
+  @apply bg-opacity-20 rounded-full dark:bg-opacity-20 dark:bg-white bg-mid-dark-blue;
 }
 ::-webkit-scrollbar-thumb {
-  @apply dark:bg-white rounded-full bg-mid-dark-blue bg-opacity-80
+  @apply dark:bg-white rounded-full bg-mid-dark-blue dark:bg-opacity-70
 }

@@ -12,7 +12,7 @@ const data = [
 ];
 const Invoices = props => {
     return (
-        <main className="overflow-y-scroll overflow-x-hidden pr-2 w-full h-3/4">
+        <main className="overflow-y-scroll overflow-x-hidden pr-2 w-full h-3/5 sm:h-3/4">
             {data.map(value => {
                 const { tag, date, name, payment, status } = value;
                 return ( 
@@ -29,3 +29,4 @@ const Invoices = props => {
     );
 }
 export default Invoices;
+export { data };

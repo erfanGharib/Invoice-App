@@ -18,15 +18,19 @@ const Invoice = props => {
     }
 
     return (
-        <table className="bg-white dark:bg-mid-dark-blue dark:bg-opacity-60 rounded-lg shadow-lg w-full h-22 mb-4">
-            <td>
+        <table 
+            style={{gridTemplateAreas:"'tag name name name name name' 'date status status status status status' 'payment status status status status status'"}} 
+            key={tag} 
+            className="bg-white sm:p-0 p-6 py-7 content-center gap-y-2 justify-between grid sm:table dark:bg-mid-dark-blue dark:bg-opacity-60 rounded-lg shadow-lg w-full h-36 sm:h-22 mb-4"
+        >
+            <td style={{gridArea:'tag'}} className="text-left sm:text-center">
                 <span className="opacity-50">#</span>
                 <strong className="uppercase">{tag}</strong>
             </td>
-            <td className="capitalize opacity-60">{date}</td>
-            <td className="capitalize opacity-60">{name}</td>
-            <td className="font-bold text-xl">&#163; {splitNumbers(payment)}</td>
-            <td className="w-28">
+            <td style={{gridArea:'date'}} className="capitalize text-left sm:text-center opacity-60">{date}</td>
+            <td style={{gridArea:'name'}} className="capitalize text-right sm:text-center opacity-60">{name}</td>
+            <td style={{gridArea:'payment'}} className="font-bold text-left sm:text-center text-xl">&#163; {splitNumbers(payment)}</td>
+            <td style={{gridArea:'status'}} className="w-28 sm:ml-0 sm:mt-0 mt-3 ml-auto">
                 <div 
                     className={`
                         ${status ? 'bg-emerald-500 text-emerald-500' : 'bg-orange-400 text-orange-400'} 
@@ -36,7 +40,7 @@ const Invoice = props => {
                     <span className="mt-0.5">{status ? 'Paid' : 'Pending'}</span>
                 </div>
             </td>
-            <td className="transform -rotate-90 px-2.5">
+            <td className="transform sm:table-cell hidden -rotate-90 px-2.5">
                 <DownArrowIco />
             </td>
         </table>

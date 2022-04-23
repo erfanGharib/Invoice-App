@@ -9,13 +9,14 @@ const FilterBtn = props => {
 
     return (
         <div className="flex flex-row">
-            <button className="sm:w-40 relative mr-5 h-14  flex items-center font-semibold">
-                <div onClick={displayDropDownMenu} className="hover:underline underline-offset-2">
-                    Filter by status
+            <div className="sm:w-40 w-24 relative sm:mr-5 my-auto flex items-center">
+                <button onClick={displayDropDownMenu} className="hover:underline font-semibold underline-offset-2 text-base">
+                    Filter {window.innerWidth <= 640 ? '' : 'by status'}
                     &ensp;
                     <DownArrowIco />
-                </div>
-                <div ref={dropDownMenuRef} className="absolute hidden opacity-0 transition-all transform scale-y-75 z-10 origin-top top-12 w-full p-1.5 dark:text-dark-blue bg-mid-dark-blue text-white rounded-md dark:bg-white shadow-lg flex-col items-start justify-between">
+                </button>
+
+                <div ref={dropDownMenuRef} className="absolute hidden opacity-0 transition-all transform scale-y-75 z-10 origin-top top-7 sm:right-0 right-4 w-full p-1.5 dark:text-dark-blue bg-mid-dark-blue text-white rounded-md dark:bg-white shadow-lg flex-col items-start justify-between">
                     {filterMethods.map(value => 
                         <button 
                             className="p-1 w-full hover:bg-white hover:bg-opacity-20 rounded-md" 
@@ -25,7 +26,7 @@ const FilterBtn = props => {
                         </button>
                     )}
                 </div>
-            </button>
+            </div>
         </div>
     );
 }

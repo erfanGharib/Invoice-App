@@ -28,7 +28,8 @@ module.exports = {
         20: '4.7rem'
       },
       height: {
-        22: '5.5rem'
+        22: '5.5rem',
+        'full-20': 'calc(100% - 4.7rem)'
       }
     },
   },
