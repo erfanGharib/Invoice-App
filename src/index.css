@@ -32,6 +32,9 @@ td {
 .f-center {
   @apply flex justify-center items-center;
 }
+.f-between {
+  @apply flex items-center justify-between;
+}
 svg {
   display: inline;
 }
@@ -45,11 +48,16 @@ svg {
 }
 ::-webkit-scrollbar {
   width: 5px;
-  padding: 2px;
 }
 ::-webkit-scrollbar-track {
   @apply bg-opacity-20 rounded-full dark:bg-opacity-20 dark:bg-white bg-mid-dark-blue;
 }
 ::-webkit-scrollbar-thumb {
   @apply dark:bg-white rounded-full bg-mid-dark-blue dark:bg-opacity-70
+}
+h2 {
+  @apply font-bold text-lg mt-1 mb-2;
+}
+#invoice-info > span > span {
+  @apply opacity-60 mb-1;
 }

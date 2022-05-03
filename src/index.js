@@ -4,11 +4,14 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import AppOverview from './pages/overview/overview';
+import AppInnerview from './pages/innerview/innerview';
 
 ReactDOM.render(
     <BrowserRouter>
         <Routes>
-            <Route path='/' element={<App />} />
+            <Route path='/'     element={<App page={<AppOverview />}  panel={''} />} />
+            <Route path='/edit' element={<App page={<AppInnerview />} panel={''} />} />
         </Routes>
     </BrowserRouter>,
     document.getElementById('root')

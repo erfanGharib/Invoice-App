@@ -1,5 +1,6 @@
 import React from "react";
 import { ReactComponent as DownArrowIco } from '../../../assets/icons/down-arrow.svg';
+import InvoiceStatus from "../../../components/invoice-status";
 
 const Invoice = props => {
     const {tag, payment, name, date, status } = props;
@@ -31,14 +32,7 @@ const Invoice = props => {
             <td style={{gridArea:'name'}} className="capitalize text-right sm:text-center opacity-60">{name}</td>
             <td style={{gridArea:'payment'}} className="font-bold text-left sm:text-center text-xl">&#163; {splitNumbers(payment)}</td>
             <td style={{gridArea:'status'}} className="w-28 sm:ml-0 sm:mt-0 mt-3 ml-auto">
-                <div 
-                    className={`
-                        ${status ? 'bg-emerald-500 text-emerald-500' : 'bg-orange-400 text-orange-400'} 
-                        f-center text-sm font-bold bg-opacity-10 w-full h-11 rounded-md
-                    `}>
-                    <span className={`${status ? 'bg-emerald-500' : 'bg-orange-400'} w-2.5 h-2.5 mr-2 rounded-full block`}></span>
-                    <span className="mt-0.5">{status ? 'Paid' : 'Pending'}</span>
-                </div>
+                <InvoiceStatus status={status} />
             </td>
             <td className="transform sm:table-cell hidden -rotate-90 px-2.5">
                 <DownArrowIco />

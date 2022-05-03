@@ -29,7 +29,7 @@ module.exports = {
       },
       height: {
         22: '5.5rem',
-        'full-20': 'calc(100% - 4.7rem)'
+        'full-20': 'calc(100vh - 4.7rem)'
       }
     },
   },

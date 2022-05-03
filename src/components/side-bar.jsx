@@ -4,7 +4,7 @@ import ThemeSwitcher from './theme-switcher';
 import { ReactComponent as AppLogo } from '../logo.svg';
 const SideBar = props => {
     return (
-        <div className="w-full min-h-20 sm:h-full sm:rounded-r-3xl overflow-hidden sm:w-20 bg-mid-dark-blue flex flex-row items-center justify-between sm:flex-col">
+        <div className="z-30 sw-full h-20 min-h-20 sm:h-full sm:rounded-r-3xl overflow-hidden sm:w-20 bg-mid-dark-blue flex flex-row items-center justify-between sm:flex-col">
             <AppLogo />
             <div className="flex flex-row sm:flex-col sm:w-full sm:h-auto h-full">
                 <ThemeSwitcher />

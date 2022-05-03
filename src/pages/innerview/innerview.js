@@ -1,22 +1,10 @@
 import React from "react";
-const SideBar = props => {
+import InvoiceFullStatus from "./components/inovice-full-status";
+const AppInnerview = props => {
     return (
-        <header className="h-full w-10 bg-mid-dark-purple flex flex-row items-center justify-between md:flex-col">
-            <div className="">
-                <h1 className="text-4xl font-bold">Invoices</h1>
-                <p className="text-white opacity-50">There are {} total invoices</p>
-            </div>
-            <div>
-                <button className="md:border-b border-r border-l-purple md:w-full md:h-20 h-full w-20">
-                    Filter by status
-                    <DownArrowIco />
-                </button>
-                <button className="rounded-full p-5 last:bg-purple">
-                    <PlusIco />
-                    New Invoices
-                </button>
-            </div>
-        </header>
+        <main className="f-center md:h-full h-full-20 overflow-y-scroll w-full z-0">
+            <InvoiceFullStatus />
+        </main>
     );
 }
-export default SideBar;
+export default AppInnerview;
