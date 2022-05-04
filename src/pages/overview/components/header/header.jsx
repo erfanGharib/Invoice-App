@@ -3,10 +3,6 @@ import FilterBtn from "./filter-btn";
 import { data } from "../invoices";
 import { ReactComponent as PlusIco } from '../../../../assets/icons/plus.svg';
 const Header = props => {
-    // remove unwanted text for better responsive on device resize
-    const [deviceWidth, setDeviceWidth] = useState(window.innerWidth);
-    window.addEventListener('resize', () => setDeviceWidth(window.innerWidth))
-
     return (
         <header className="h-52 md:h-64 w-full bg-mid-dark-purple flex items-center justify-between">
             <div>
@@ -19,7 +15,7 @@ const Header = props => {
 
                 <button className="rounded-full text-base hover:bg-opacity-80 sm:h-14 h-12 active:opacity-60 transition-colors py-0 px-2 w-28 sm:w-48 font-semibold text-white flex items-center bg-purple">
                     <PlusIco />
-                    New {deviceWidth <= 640 ? '' : 'Invoice'}
+                    New {window.innerWidth <= 640 ? '' : 'Invoice'}
                 </button>
             </div>
         </header>
