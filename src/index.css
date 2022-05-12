@@ -69,3 +69,20 @@ h2 {
     content: 'by status';
   }
 }
+table > * > * {
+  @apply flex items-center justify-between w-full; 
+}
+.displayPanel {
+  display: flex !important;
+  transform: translate(4rem) !important;
+  transition: 1s !important;
+}
+.showPanelFather {
+  display: flex !important;
+}
+.normal-btn {
+  @apply dark:hover:bg-mid-dark-blue hover:bg-dark-blue hover:bg-opacity-5 p-2 text-sm rounded-lg;
+}
+.rounded-btn {
+  @apply rounded-full hover:bg-opacity-80 h-12 active:opacity-60 transition-colors px-7
+}

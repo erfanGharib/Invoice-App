@@ -10,13 +10,11 @@ import AppInnerview from './pages/innerview/innerview';
 const App = props => {
   const [invoiceData, setInoviceData] = useState(data);
 
-  console.log(data);
-
   return (
     <React.Fragment>
         <SideBar />
-        <Panel panel={props.panel} />
-        {props.IS_OVERVIEW_PAGE ? <AppOverview invoiceData={invoiceData} /> : <AppInnerview />}
+        <Panel panel={props.children} />
+        {props.IS_OVERVIEW_PAGE ? <AppOverview invoiceData={invoiceData} /> : <AppInnerview invoiceData={props.invoiceData} />}
     </React.Fragment>
   );
 }

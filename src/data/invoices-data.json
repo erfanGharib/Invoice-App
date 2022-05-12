@@ -1,7 +1,7 @@
 [
     {
         "tag": "xm9141",
-        "name": "Alex Grim",
+        "clientName": "Alex Grim",
         "email": "alexgrim@gmail.com",
         "location": {
             "street": "19 Union Terrace",
@@ -32,7 +32,7 @@
     },
     {
         "tag": "rg0314",
-        "name": "John Morrison",
+        "clientName": "John Morrison",
         "email": "johnmorrison@gmail.com",
         "location": {
             "street": "19 Union Terrace",
@@ -63,7 +63,7 @@
     },
     {
         "tag": "rj3080",
-        "name": "Jensen Huang",
+        "clientName": "Jensen Huang",
         "email": "jensenhuang@gmail.com",
         "location": {
             "street": "19 Union Terrace",
@@ -94,7 +94,7 @@
     },
     {
         "tag": "rt2080",
-        "name": "Alysa Werner",
+        "clientName": "Alysa Werner",
         "email": "alysawerner@gmail.com",
         "location": {
             "street": "19 Union Terrace",
@@ -125,7 +125,7 @@
     },
     {
         "tag": "ty9141",
-        "name": "Thomas Wayne",
+        "clientName": "Thomas Wayne",
         "email": "thomaswayne@gmail.com",
         "location": {
             "street": "19 Union Terrace",
@@ -156,7 +156,7 @@
     },
     {
         "tag": "aa1449",
-        "name": "Mellisa Clarke",
+        "clientName": "Mellisa Clarke",
         "email": "mellisaclarke@gmail.com",
         "location": {
             "street": "19 Union Terrace",
@@ -187,7 +187,7 @@
     },
     {
         "tag": "pv2353",
-        "name": "Anita Wainwright",
+        "clientName": "Anita Wainwright",
         "email": "anitawainwright@gmail.com",
         "location": {
             "street": "19 Union Terrace",
