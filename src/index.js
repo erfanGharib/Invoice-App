@@ -4,14 +4,14 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import AppOverview from './pages/overview/overview';
-import AppInnerview from './pages/innerview/innerview';
+import EditInvoicePanel from './pages/innerview/components/edit-invoice-panel';
+import CreateInvoicePanel from './pages/overview/components/create-invoice-panel';
 
 ReactDOM.render(
     <BrowserRouter>
         <Routes>
-            <Route path='/'     element={<App page={<AppOverview />}  panel={''} />} />
-            <Route path='/edit' element={<App page={<AppInnerview />} panel={''} />} />
+            <Route path='/'     element={<App IS_OVERVIEW_PAGE  panel={<EditInvoicePanel />} />} />
+            <Route path='/edit' element={<App IS_OVERVIEW_PAGE={false} panel={<CreateInvoicePanel />} />} />
         </Routes>
     </BrowserRouter>,
     document.getElementById('root')

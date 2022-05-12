@@ -1,11 +1,11 @@
 import React from "react";
-const EditInvoicePanel = props => {
+const Panel = props => {
     return (
-        <main className="f-center h-full w-full z-0">
-            <div className="rounded-xl -z-10 shadow-xl w-1/2 h-2/3 dark:bg-mid-dark-blue bg-white">
-
+        <div className="absolute w-full h-full hidden z-10 bg-black bg-opacity-30">
+            <div className="left-0 relative top-0 z-20 h-full dark:bg-dark-blue bg-white w-1/2 rounded-tr-3xl rounded-br-3xl">
+                {props.panel}
             </div>
-        </main>
+        </div>
     );
 }
-export default EditInvoicePanel;
+export default Panel;

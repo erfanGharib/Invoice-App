@@ -61,3 +61,11 @@ h2 {
 #invoice-info > span > span {
   @apply opacity-60 mb-1;
 }
+@media (min-width:640px) {
+  #new-invoice-btn::after {
+    content: 'Invoice';
+  }
+  #filter-btn > span::after {
+    content: 'by status';
+  }
+}

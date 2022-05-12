@@ -1,11 +1,33 @@
 import React from "react";
 const CreateInvoicePanel = props => {
     return (
-        <main className="f-center h-full w-full z-0">
-            <div className="rounded-xl -z-10 shadow-xl w-1/2 h-2/3 dark:bg-mid-dark-blue bg-white">
+        <React.Fragment>
+            <h2>New Invoice</h2>
+            <span>Bill From</span>
 
+            <label htmlFor="address">
+                <span>Street Address</span>
+                <input type="text" id="address" />
+            </label>
+
+            <div>
+                {}
+                <label htmlFor="city">
+                    <span>Street City</span>
+                    <input type="text" id="city" />
+                </label>
+
+                <label htmlFor="address">
+                    <span>Street Address</span>
+                    <input type="text" id="address" />
+                </label>
+
+                <label htmlFor="address">
+                    <span>Street Address</span>
+                    <input type="text" id="address" />
+                </label>
             </div>
-        </main>
+        </React.Fragment>
     );
 }
 export default CreateInvoicePanel;

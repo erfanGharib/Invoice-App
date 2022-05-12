@@ -22,7 +22,8 @@ module.exports = {
         'secondry-l-purple': '#8589b040',
       },
       minHeight: {
-        20: '4.7rem'
+        20: '4.7rem',
+        52: '13rem',
       },
       minWidth: {
         20: '4.7rem'

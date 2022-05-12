@@ -1,20 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import SideBar from './components/side-bar';
+import data from './data/invoices-data.json'
 import './App.css';
 import './tailwind.css';
+import Panel from './components/panel';
+import AppOverview from './pages/overview/overview';
+import AppInnerview from './pages/innerview/innerview';
 
 const App = props => {
+  const [invoiceData, setInoviceData] = useState(data);
+
+  console.log(data);
+
   return (
     <React.Fragment>
         <SideBar />
-
-        {/* <div className="absolute w-full h-full z-10 bg-black bg-opacity-30">
-          <div className="left-0 relative top-0 z-20 h-full dark:bg-dark-blue bg-white w-1/2 rounded-tr-3xl rounded-br-3xl">
-            {props.panel}
-          </div>
-        </div> */}
-
-        {props.page}
+        <Panel panel={props.panel} />
+        {props.IS_OVERVIEW_PAGE ? <AppOverview invoiceData={invoiceData} /> : <AppInnerview />}
     </React.Fragment>
   );
 }

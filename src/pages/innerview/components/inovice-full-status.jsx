@@ -6,6 +6,9 @@ const InvoiceFullStatus = props => {
         { tearName: 'Banner design', price: 156, number: 1 },
         { tearName: 'Email design', price: 200, number: 2 },
     ];
+    const userLocation = {
+        
+    }
     let amountDue = 0;
     arr.forEach(v => {
         amountDue += v.price * v.number;
@@ -35,11 +38,20 @@ const InvoiceFullStatus = props => {
 
             <div className="w-full p-6 sm:p-10 rounded-lg shadow-xl dark:bg-mid-dark-blue bg-white">
                 <div className="w-full flex flex-col">
-                    <span>
-                        <span className="opacity-50">#</span>
-                        <strong className="uppercase">222shf</strong>
-                    </span>
-                    <span className="opacity-60">Graphic design</span>
+                    <div>
+                        <span>
+                            <span className="opacity-50">#</span>
+                            <strong className="uppercase">222shf</strong>
+                        </span>
+                        <span className="opacity-60">Graphic design</span>
+                    </div>
+
+                    <div>
+                        <span className="opacity-60">Graphic design</span>
+                        <span className="opacity-60">Graphic design</span>
+                        <span className="opacity-60">Graphic design</span>
+                        <span className="opacity-60">Graphic design</span>
+                    </div>
                 </div>
 
                 <div id="invoice-info" className="flex justify-between flex-wrap gap-4 my-9">
