@@ -74,8 +74,8 @@ table > * > * {
 }
 .displayPanel {
   display: flex !important;
-  transform: translate(4rem) !important;
-  transition: 1s !important;
+  transform: translate(0) !important;
+  transition: .5s !important;
 }
 .showPanelFather {
   display: flex !important;

@@ -1,11 +1,11 @@
 import { React } from "react";
 
 const PanelInput = props => {
-    const {id, label, type, width} = props;
+    const {id, label, type, width, mt} = props;
     return (
         <label 
             htmlFor={id} 
-            className={`${width === undefined ? 'w-full' : width} capitalize flex flex-col text-sm mt-6 justify-between items-start`}
+            className={`${width === undefined ? 'w-full' : width} capitalize flex flex-col text-sm ${mt === undefined ? 'mt-6' : mt} justify-between items-start`}
         >
             <span className="text-inherit">{label === undefined ? id : label}</span>
             <input 

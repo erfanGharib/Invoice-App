@@ -8,15 +8,6 @@ import EditInvoicePanel from './pages/innerview/components/edit-invoice-panel';
 import CreateInvoicePanel from './pages/overview/components/create-invoice-panel';
 import data from './data/invoices-data.json';
 
-const calcTotalPrice = items => {
-    let totalPrice = 0;
-    items.forEach(value => {
-        totalPrice += (value.qty * value.price);
-    });
-    return totalPrice;
-}
-export default calcTotalPrice;
-
 ReactDOM.render(
     <BrowserRouter>
         <Routes>

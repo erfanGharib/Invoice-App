@@ -1,6 +1,6 @@
 import { React } from "react";
 import { ReactComponent as DownArrowIco } from '../../../assets/icons/down-arrow.svg';
-import calcTotalPrice from "../../../index";
+import calcTotalPrice from "../../../functions";
 import InvoiceStatus from "../../../components/invoice-status";
 
 const Invoice = props => {
@@ -25,7 +25,7 @@ const Invoice = props => {
             <tr
                 style={{ gridTemplateAreas: "'tag name name name name name' 'date status status status status status' 'payment status status status status status'" }}
                 key={tag}
-                className="bg-white sm:p-0 p-6 py-7 content-center gap-y-2 justify-between grid sm:table dark:bg-mid-dark-blue dark:bg-opacity-60 rounded-lg shadow-lg w-full h-36 sm:h-22 mb-4"
+                className="bg-white sm:p-0 p-6 py-7 content-center gap-y-2 justify-between grid sm:table dark:bg-mid-dark-blue dark:bg-opacity-60 rounded-lg shadow-lg w-full h-44 sm:h-22 mb-4"
             >
                 <td style={{ gridArea: 'tag' }} className="text-left sm:text-center">
                     <span className="opacity-50">#</span>

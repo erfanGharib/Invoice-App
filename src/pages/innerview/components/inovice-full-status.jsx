@@ -1,7 +1,7 @@
 import React from "react";
 import { ReactComponent as ArrowIco } from '../../../assets/icons/down-arrow.svg';
 import InvoiceStatus from "../../../components/invoice-status";
-import calcTotalPrice from "../../../index";
+import calcTotalPrice from "../../../functions";
 
 const InvoiceFullStatus = props => {
     const { tag, invoiceDate, projectDescription, paymentDue, clientName, items, email, status } = props.invoiceData;
@@ -71,7 +71,7 @@ const InvoiceFullStatus = props => {
                 <table className="dark:bg-white dark:bg-opacity-5 bg-slate-50 dark:text-white w-full f-center flex-col rounded-lg">
                     <thead className="mt-5 w-full px-7 text-sm opacity-60">
                         <tr className="hidden sm:flex">
-                            <td className="w-32 text-left">Tears Name</td>
+                            <td className="w-32 text-left">Item Name</td>
                             <td className="w-10">QTY</td>
                             <td className="w-20 text-right">Price</td>
                             <td className="w-14 text-right">Total</td>
