@@ -10,11 +10,10 @@ import AppInnerview from './pages/innerview/innerview';
 const invoiceContext = React.createContext();
 const App = props => {
   const [invoiceData, setInoviceData] = useState(data);
-
   return (
     <invoiceContext.Provider value={{invoiceData: invoiceData, setInoviceData: setInoviceData}}>
         <SideBar />
-        <Panel panel={props.children} />
+        <Panel invoiceData={props.invoiceData} />
         {props.IS_OVERVIEW_PAGE ? <AppOverview invoiceData={invoiceData} /> : <AppInnerview invoiceData={props.invoiceData} />}
     </invoiceContext.Provider>
   );

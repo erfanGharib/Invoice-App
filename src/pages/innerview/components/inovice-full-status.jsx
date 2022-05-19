@@ -2,27 +2,28 @@ import React from "react";
 import { ReactComponent as ArrowIco } from '../../../assets/icons/down-arrow.svg';
 import InvoiceStatus from "../../../components/invoice-status";
 import calcTotalPrice from "../../../functions";
+import { displayPanel } from "../../../functions";
 
 const InvoiceFullStatus = props => {
     const { tag, invoiceDate, projectDescription, paymentDue, clientName, items, email, status } = props.invoiceData;
 
     return (
-        <div className="-z-10 relative top-44 sm:top-20 sm:w-3/4 lg:w-3/5 w-11/12 py-12 flex flex-col items-center justify-end" style={{ height: '180vh' }}>
-            <div className="w-full h-5 mt-12 mb-4">
+        <div className="-z-10 relative top-20 md:top-12 sm:w-3/4 lg:w-3/5 w-11/12 flex flex-col items-center justify-end">
+            <div className="w-full h-5 mb-4">
                 <a href="/" className="normal-btn">
                     <span className="transform rotate-90 inline-block mr-4"><ArrowIco /></span>
                     <small>Go back</small>
                 </a>
             </div>
 
-            <div className="w-full flex lg:flex-row flex-col gap-y-4 justify-between items-center rounded-lg py-4 px-6 mb-4 shadow-xl dark:bg-mid-dark-blue bg-white">
+            <div className="w-full h-max flex lg:flex-row flex-col gap-y-4 justify-between items-center rounded-lg py-4 px-6 mb-4 shadow-xl dark:bg-mid-dark-blue bg-white">
                 <span className="f-between lg:w-max w-full">
                     Status:
                     <InvoiceStatus status={status} />
                 </span>
 
                 <span className="f-between gap-y-2 lg:w-max w-full text-sm flex-wrap">
-                    <button className="sm:w-auto w-full sm:mr-2 bg-mid-dark-blue text-white rounded-btn">Edit</button>
+                    <button onClick={displayPanel} className="sm:w-auto w-full sm:mr-2 bg-mid-dark-blue text-white rounded-btn">Edit</button>
                     <button className="sm:w-auto w-full sm:mr-2 bg-red text-white rounded-btn">Delete</button>
                     <button className="sm:w-auto w-full bg-purple text-white rounded-btn">Mark as Paid</button>
                 </span>

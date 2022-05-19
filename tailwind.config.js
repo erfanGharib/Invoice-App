@@ -30,7 +30,16 @@ module.exports = {
       },
       height: {
         22: '5.5rem',
+        150: '150vh',
+        190: '190vh',
+        250: '280vh',
         'full-20': 'calc(100vh - 4.7rem)'
+      },
+      screens: {
+        'xs': '300px',
+      },
+      top: {
+        74: '19rem'
       }
     },
   },

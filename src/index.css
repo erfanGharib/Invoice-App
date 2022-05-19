@@ -73,9 +73,8 @@ table > * > * {
   @apply flex items-center justify-between w-full; 
 }
 .displayPanel {
-  display: flex !important;
   transform: translate(0) !important;
-  transition: .5s !important;
+  transition: .3s !important;
 }
 .showPanelFather {
   display: flex !important;
