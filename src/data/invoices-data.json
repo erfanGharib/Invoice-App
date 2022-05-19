@@ -3,11 +3,17 @@
         "tag": "xm9141",
         "clientName": "Alex Grim",
         "email": "alexgrim@gmail.com",
-        "location": {
-            "street": "19 Union Terrace",
-            "city": "London",
-            "postCode": "EI JEZ",
-            "country": "United Kingdom"
+        "sellerLoaction": {
+            "s_street": "19 Broadway",
+            "s_city": "New york",
+            "s_postCode": "ERFAN GHARIB",
+            "s_country": "United States"
+        },
+        "clientLocation": {
+            "c_street": "19 Union Terrace",
+            "c_city": "London",
+            "c_postCode": "EI JEZ",
+            "c_country": "United Kingdom"
         },
         "invoiceDate": { 
             "day": 20,
@@ -34,11 +40,17 @@
         "tag": "rg0314",
         "clientName": "John Morrison",
         "email": "johnmorrison@gmail.com",
-        "location": {
-            "street": "19 Union Terrace",
-            "city": "London",
-            "postCode": "EI JEZ",
-            "country": "United Kingdom"
+        "sellerLoaction": {
+            "s_street": "19 Broadway",
+            "s_city": "New york",
+            "s_postCode": "ERFAN GHARIB",
+            "s_country": "United States"
+        },
+        "clientLocation": {
+            "c_street": "19 Union Terrace",
+            "c_city": "London",
+            "c_postCode": "EI JEZ",
+            "c_country": "United Kingdom"
         },
         "invoiceDate": { 
             "day": 1,
@@ -65,15 +77,21 @@
         "tag": "rj3080",
         "clientName": "Jensen Huang",
         "email": "jensenhuang@gmail.com",
-        "location": {
-            "street": "19 Union Terrace",
-            "city": "London",
-            "postCode": "EI JEZ",
-            "country": "United Kingdom"
+        "sellerLoaction": {
+            "s_street": "19 Broadway",
+            "s_city": "New york",
+            "s_postCode": "ERFAN GHARIB",
+            "s_country": "United States"
+        },
+        "clientLocation": {
+            "c_street": "19 Union Terrace",
+            "c_city": "London",
+            "c_postCode": "EI JEZ",
+            "c_country": "United Kingdom"
         },
         "invoiceDate": {
-            "day": 19,
-            "month": [ "Aug", 8],
+            "day": 31,
+            "month": [ "Oct", 10],
             "year": 2021
         },
         "paymentDue": "22 Sep 2021",
@@ -96,11 +114,17 @@
         "tag": "rt2080",
         "clientName": "Alysa Werner",
         "email": "alysawerner@gmail.com",
-        "location": {
-            "street": "19 Union Terrace",
-            "city": "London",
-            "postCode": "EI JEZ",
-            "country": "United Kingdom"
+        "sellerLoaction": {
+            "s_street": "19 Broadway",
+            "s_city": "New york",
+            "s_postCode": "ERFAN GHARIB",
+            "s_country": "United States"
+        },
+        "clientLocation": {
+            "c_street": "19 Union Terrace",
+            "c_city": "London",
+            "c_postCode": "EI JEZ",
+            "c_country": "United Kingdom"
         },
         "invoiceDate": { 
             "day": 12,
@@ -127,11 +151,17 @@
         "tag": "ty9141",
         "clientName": "Thomas Wayne",
         "email": "thomaswayne@gmail.com",
-        "location": {
-            "street": "19 Union Terrace",
-            "city": "London",
-            "postCode": "EI JEZ",
-            "country": "United Kingdom"
+        "sellerLoaction": {
+            "s_street": "19 Broadway",
+            "s_city": "New york",
+            "s_postCode": "ERFAN GHARIB",
+            "s_country": "United States"
+        },
+        "clientLocation": {
+            "c_street": "19 Union Terrace",
+            "c_city": "London",
+            "c_postCode": "EI JEZ",
+            "c_country": "United Kingdom"
         },
         "invoiceDate": {
             "day": 31,
@@ -158,11 +188,17 @@
         "tag": "aa1449",
         "clientName": "Mellisa Clarke",
         "email": "mellisaclarke@gmail.com",
-        "location": {
-            "street": "19 Union Terrace",
-            "city": "London",
-            "postCode": "EI JEZ",
-            "country": "United Kingdom"
+        "sellerLoaction": {
+            "s_street": "19 Broadway",
+            "s_city": "New york",
+            "s_postCode": "ERFAN GHARIB",
+            "s_country": "United States"
+        },
+        "clientLocation": {
+            "c_street": "19 Union Terrace",
+            "c_city": "London",
+            "c_postCode": "EI JEZ",
+            "c_country": "United Kingdom"
         },
         "invoiceDate": { 
             "day": 14,
@@ -189,11 +225,17 @@
         "tag": "pv2353",
         "clientName": "Anita Wainwright",
         "email": "anitawainwright@gmail.com",
-        "location": {
-            "street": "19 Union Terrace",
-            "city": "London",
-            "postCode": "EI JEZ",
-            "country": "United Kingdom"
+        "sellerLoaction": {
+            "s_street": "19 Broadway",
+            "s_city": "New york",
+            "s_postCode": "ERFAN GHARIB",
+            "s_country": "United States"
+        },
+        "clientLocation": {
+            "c_street": "19 Union Terrace",
+            "c_city": "London",
+            "c_postCode": "EI JEZ",
+            "c_country": "United Kingdom"
         },
         "invoiceDate": {
             "day": 12,

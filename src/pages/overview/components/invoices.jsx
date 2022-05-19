@@ -2,6 +2,7 @@ import React from "react";
 import Invoice from "./invoice";
 
 const Invoices = props => {
+    console.log(props.invoiceData);
     return (
         <main className="overflow-y-scroll h-3/5 sm:h-3/4 overflow-x-hidden">
             <table className="pr-2 w-full">

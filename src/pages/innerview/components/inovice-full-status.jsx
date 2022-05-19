@@ -1,11 +1,25 @@
-import React from "react";
+import React, { useContext } from "react";
 import { ReactComponent as ArrowIco } from '../../../assets/icons/down-arrow.svg';
 import InvoiceStatus from "../../../components/invoice-status";
 import calcTotalPrice from "../../../functions";
 import { displayPanel } from "../../../functions";
+import { invoiceContext } from "../../../App";
 
 const InvoiceFullStatus = props => {
-    const { tag, invoiceDate, projectDescription, paymentDue, clientName, items, email, status } = props.invoiceData;
+    const { tag, clientLocation, invoiceDate, projectDescription, paymentDue, clientName, items, email, status } = props.invoiceData;
+    const { allInvoiceData, setInoviceData, setAllInoviceData, invoiceIndex } = useContext(invoiceContext);
+
+    console.log(invoiceIndex);
+    const deleteInvoice = invoiceIndex_ => {
+        let allInvoiceData_ = typeof allInvoiceData === 'string' ? JSON.parse(allInvoiceData) : allInvoiceData;
+        allInvoiceData_.splice(invoiceIndex_, 1);
+        setAllInoviceData(allInvoiceData_);
+
+        localStorage.clear();
+        localStorage.setItem('invoiceData', JSON.stringify(allInvoiceData));
+
+        window.location.replace('/');
+    }
 
     return (
         <div className="-z-10 relative top-20 md:top-12 sm:w-3/4 lg:w-3/5 w-11/12 flex flex-col items-center justify-end">
@@ -24,7 +38,7 @@ const InvoiceFullStatus = props => {
 
                 <span className="f-between gap-y-2 lg:w-max w-full text-sm flex-wrap">
                     <button onClick={displayPanel} className="sm:w-auto w-full sm:mr-2 bg-mid-dark-blue text-white rounded-btn">Edit</button>
-                    <button className="sm:w-auto w-full sm:mr-2 bg-red text-white rounded-btn">Delete</button>
+                    <button onClick={deleteInvoice} className="sm:w-auto w-full sm:mr-2 bg-red text-white rounded-btn">Delete</button>
                     <button className="sm:w-auto w-full bg-purple text-white rounded-btn">Mark as Paid</button>
                 </span>
             </div>

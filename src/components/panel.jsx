@@ -8,8 +8,10 @@ const panelRef = React.createRef();
 const panelFatherRef = React.createRef();
 const Panel = props => {
     const invoiceItems = useContext(invoiceContext);
-    const { tag, invoiceDate, location: location_, projectDescription, paymentDue, clientName, items, email } = props.invoiceData === undefined ? '' : props.invoiceData;
-    const { street, postCode, city, country } = location_ === undefined ? '' : location_;
+    const { tag, invoiceDate, clientLocation, sellerLoaction, projectDescription, paymentDue, clientName, items, email } = props.invoiceData === undefined ? '' : props.invoiceData;
+    
+    const { s_street, s_postCode, s_city, s_country } = sellerLoaction === undefined ? '' : sellerLoaction;
+    const { c_street, c_postCode, c_city, c_country } = clientLocation === undefined ? '' : clientLocation;
 
     return (
         <div
@@ -38,23 +40,23 @@ const Panel = props => {
                 </h2>
                 <span className="text-l-purple text-sm mt-2">Bill From</span>
 
-                <PanelInput label='street address' id='id' />
+                <PanelInput label='street address' id='id' value={s_street} />
 
                 <div className="w-full f-between gap-x-5">
-                    <PanelInput id='city' width={'w-1/3'} />
-                    <PanelInput label='post code' id='post-code' width={'w-1/3'} />
-                    <PanelInput id='country' width={'w-1/3'} />
+                    <PanelInput id='city' width={'w-1/3'} value={s_city} />
+                    <PanelInput label='post code' id='post-code' width={'w-1/3'} value={s_postCode} />
+                    <PanelInput id='country' width={'w-1/3'} value={s_country} />
                 </div>
 
                 <span className="text-purple text-sm mt-10">Bill To</span>
                 <PanelInput label="client's name" id='client-name' value={clientName} />
                 <PanelInput label="client's email" id='client-email' value={email} />
-                <PanelInput label="street address" id='street-address' value={street} />
+                <PanelInput label="street address" id='street-address' value={c_street} />
 
                 <div className="w-full f-between gap-x-5">
-                    <PanelInput id='city' width={'w-1/3'} value={city} />
-                    <PanelInput label='post code' id='post-code' width={'w-1/3'} value={postCode} />
-                    <PanelInput id='country' width={'w-1/3'} value={country} />
+                    <PanelInput id='city' width={'w-1/3'} value={c_city} />
+                    <PanelInput label='post code' id='post-code' width={'w-1/3'} value={c_postCode} />
+                    <PanelInput id='country' width={'w-1/3'} value={c_country} />
                 </div>
 
                 <PanelInput label="payment terms" id='payment-terms' type='date' />

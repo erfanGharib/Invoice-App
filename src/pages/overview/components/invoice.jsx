@@ -5,7 +5,7 @@ import InvoiceStatus from "../../../components/invoice-status";
 
 const Invoice = props => {
     const { tag, invoiceDate, clientName, items, status } = props.data;
-
+    
     const splitNumbers = () => {
         // split number three by three
         let result = '';
