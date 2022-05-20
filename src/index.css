@@ -83,5 +83,14 @@ table > * > * {
   @apply dark:hover:bg-mid-dark-blue hover:bg-dark-blue hover:bg-opacity-5 p-2 text-sm rounded-lg;
 }
 .rounded-btn {
-  @apply rounded-full hover:bg-opacity-80 h-12 active:opacity-60 transition-colors px-7
+  @apply rounded-full hover:opacity-80 h-12 active:opacity-60 transition-colors px-7
+}
+button:disabled {
+  @apply opacity-40;
+}
+button:disabled:hover {
+  opacity: .4 !important;
+}
+button:disabled:active {
+  opacity: .4 !important;
 }

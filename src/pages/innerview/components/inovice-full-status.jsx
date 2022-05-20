@@ -1,24 +1,29 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { ReactComponent as ArrowIco } from '../../../assets/icons/down-arrow.svg';
 import InvoiceStatus from "../../../components/invoice-status";
-import calcTotalPrice from "../../../functions";
-import { displayPanel } from "../../../functions";
+import calcTotalPrice, { displayPanel, saveData } from "../../../functions";
 import { invoiceContext } from "../../../App";
 
 const InvoiceFullStatus = props => {
-    const { tag, clientLocation, invoiceDate, projectDescription, paymentDue, clientName, items, email, status } = props.invoiceData;
-    const { allInvoiceData, setInoviceData, setAllInoviceData, invoiceIndex } = useContext(invoiceContext);
+    const { allInvoiceData, setInoviceData, invoiceData, setAllInoviceData, invoiceIndex } = useContext(invoiceContext);
+    const { tag, clientLocation, invoiceDate, projectDescription, paymentDue, clientName, items, email, status } = invoiceData;
+    const { c_street, c_postCode, c_city, c_country } = clientLocation;
 
-    console.log(invoiceIndex);
-    const deleteInvoice = invoiceIndex_ => {
+    const deleteInvoice = () => {
         let allInvoiceData_ = typeof allInvoiceData === 'string' ? JSON.parse(allInvoiceData) : allInvoiceData;
-        allInvoiceData_.splice(invoiceIndex_, 1);
-        setAllInoviceData(allInvoiceData_);
+        allInvoiceData_.splice(invoiceData, 1);
 
-        localStorage.clear();
-        localStorage.setItem('invoiceData', JSON.stringify(allInvoiceData));
-
+        setAllInoviceData({...allInvoiceData_});
+        saveData(allInvoiceData);
+        
         window.location.replace('/');
+    }
+    const markAsPaid = () => {
+        let invoiceDataCopy = invoiceData;
+        invoiceDataCopy.status = 1;
+
+        setInoviceData({...invoiceDataCopy});
+        saveData(allInvoiceData);
     }
 
     return (
@@ -39,25 +44,32 @@ const InvoiceFullStatus = props => {
                 <span className="f-between gap-y-2 lg:w-max w-full text-sm flex-wrap">
                     <button onClick={displayPanel} className="sm:w-auto w-full sm:mr-2 bg-mid-dark-blue text-white rounded-btn">Edit</button>
                     <button onClick={deleteInvoice} className="sm:w-auto w-full sm:mr-2 bg-red text-white rounded-btn">Delete</button>
-                    <button className="sm:w-auto w-full bg-purple text-white rounded-btn">Mark as Paid</button>
+                    <button 
+                        onClick={markAsPaid}
+                        disabled={status === 1}
+                        className="sm:w-auto w-full bg-purple text-white rounded-btn"
+                    >
+                        Mark as Paid
+                    </button>
                 </span>
             </div>
 
             <div className="w-full p-6 sm:p-10 rounded-lg shadow-xl dark:bg-mid-dark-blue bg-white">
-                <div className="w-full flex flex-col">
-                    <div>
+                <div className="w-full flex">
+                    <div className="flex flex-col w-auto">
                         <span>
                             <span className="opacity-50">#</span>
                             <strong className="uppercase">{tag}</strong>
                         </span>
+
                         <span className="opacity-60">{projectDescription}</span>
                     </div>
 
-                    <div>
-                        <span className="opacity-60">Graphic design</span>
-                        <span className="opacity-60">Graphic design</span>
-                        <span className="opacity-60">Graphic design</span>
-                        <span className="opacity-60">Graphic design</span>
+                    <div className="flex justify-between items-end ml-auto flex-col">
+                        <span className="opacity-60">{c_street}</span>
+                        <span className="opacity-60">{c_city}</span>
+                        <span className="opacity-60">{c_postCode}</span>
+                        <span className="opacity-60">{c_country}</span>
                     </div>
                 </div>
 

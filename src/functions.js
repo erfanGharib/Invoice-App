@@ -13,6 +13,11 @@ const displayPanel = () => {
     pDelay = pDelay === 0 ? 300 : 0;
 }
 
+const saveData = data => {
+    localStorage.clear();
+    localStorage.setItem('invoiceData', JSON.stringify(data));
+}
+
 const calcTotalPrice = items => {
     let totalPrice = 0;
     items.forEach(value => {
@@ -22,4 +27,4 @@ const calcTotalPrice = items => {
 }
 
 export default calcTotalPrice;
-export { displayPanel };
+export { displayPanel, saveData };

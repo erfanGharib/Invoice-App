@@ -6,12 +6,17 @@ import { ReactComponent as TrashIco } from '../assets/icons/trash.svg';
 
 const panelRef = React.createRef();
 const panelFatherRef = React.createRef();
-const Panel = props => {
-    const invoiceItems = useContext(invoiceContext);
-    const { tag, invoiceDate, clientLocation, sellerLoaction, projectDescription, paymentDue, clientName, items, email } = props.invoiceData === undefined ? '' : props.invoiceData;
+
+const Panel = () => {
+    const { setInoviceData, invoiceData } = useContext(invoiceContext);
+    const { tag, invoiceDate, clientLocation, sellerLoaction, projectDescription, paymentDue, clientName, items, email } = invoiceData === undefined ? '' : invoiceData;
     
     const { s_street, s_postCode, s_city, s_country } = sellerLoaction === undefined ? '' : sellerLoaction;
     const { c_street, c_postCode, c_city, c_country } = clientLocation === undefined ? '' : clientLocation;
+
+    const editInvoice = () => {
+        
+    }
 
     return (
         <div
@@ -40,7 +45,7 @@ const Panel = props => {
                 </h2>
                 <span className="text-l-purple text-sm mt-2">Bill From</span>
 
-                <PanelInput label='street address' id='id' value={s_street} />
+                <PanelInput label='street address' id='s_street' value={s_street} />
 
                 <div className="w-full f-between gap-x-5">
                     <PanelInput id='city' width={'w-1/3'} value={s_city} />
@@ -74,8 +79,10 @@ const Panel = props => {
                         </div>
 
                         <div className="w-full mb-5 font-bold">
-                            {/* if edit invoice panel opened run map on invoice invoice items
-                             else return empty string */}
+                            {/*
+                                if edit invoice panel opened , map on invoice items
+                                else return empty string 
+                            */}
                             {items === undefined ? '' : items.map(({ name, qty, price }) =>
                                 <div className="w-full gap-x-4 f-between mt-2">
                                     <PanelInput width='w-1/2' mt='mt-0' value={name} />
@@ -94,7 +101,7 @@ const Panel = props => {
                 </div>
 
                 <div className="flex justify-end items-center w-full text-sm">
-                    <button className="rounded-btn mr-3 bg-mid-dark-blue text-white">Cancel</button>
+                    <button onClick={displayPanel} className="rounded-btn mr-3 bg-mid-dark-blue text-white">Cancel</button>
                     <button className="rounded-btn bg-purple text-white">Save Changes</button>
                 </div>
             </div>
