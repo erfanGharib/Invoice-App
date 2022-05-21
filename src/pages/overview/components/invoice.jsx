@@ -8,16 +8,7 @@ const Invoice = props => {
     
     const splitNumbers = () => {
         // split number three by three
-        let result = '';
-        let numToStr = String(calcTotalPrice(items));
-
-        numToStr.split('').forEach((value, index) => {
-            result += value;
-            if (index % 3 === 0 && index !== numToStr.length - 1 && numToStr.length !== 3)
-                result += ',';
-        })
-
-        return result;
+        return String(calcTotalPrice(items)).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     }
 
     return (

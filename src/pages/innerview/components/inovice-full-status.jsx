@@ -1,11 +1,11 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { ReactComponent as ArrowIco } from '../../../assets/icons/down-arrow.svg';
 import InvoiceStatus from "../../../components/invoice-status";
 import calcTotalPrice, { displayPanel, saveData } from "../../../functions";
 import { invoiceContext } from "../../../App";
 
 const InvoiceFullStatus = props => {
-    const { allInvoiceData, setInoviceData, invoiceData, setAllInoviceData, invoiceIndex } = useContext(invoiceContext);
+    const { allInvoiceData, setInoviceData, invoiceData, setAllInoviceData } = useContext(invoiceContext);
     const { tag, clientLocation, invoiceDate, projectDescription, paymentDue, clientName, items, email, status } = invoiceData;
     const { c_street, c_postCode, c_city, c_country } = clientLocation;
 
@@ -27,7 +27,7 @@ const InvoiceFullStatus = props => {
     }
 
     return (
-        <div className="-z-10 relative top-20 md:top-12 sm:w-3/4 lg:w-3/5 w-11/12 flex flex-col items-center justify-end">
+        <div className="-z-10 mb-28 relative top-20 md:top-12 sm:w-3/4 lg:w-3/5 w-11/12 flex flex-col items-center justify-end">
             <div className="w-full h-5 mb-4">
                 <a href="/" className="normal-btn">
                     <span className="transform rotate-90 inline-block mr-4"><ArrowIco /></span>

@@ -17,7 +17,7 @@
         },
         "invoiceDate": { 
             "day": 20,
-            "month": [ "Aug", 8],
+            "month": [ "Aug", "08"],
             "year": 2021
         },
         "paymentDue": "20 Sep 2021",
@@ -54,7 +54,7 @@
         },
         "invoiceDate": { 
             "day": 1,
-            "month": [ "Oct", 10 ],
+            "month": [ "Oct", "10" ],
             "year": 2021
         },
         "paymentDue": "05 Nov 2021",
@@ -91,7 +91,7 @@
         },
         "invoiceDate": {
             "day": 31,
-            "month": [ "Oct", 10],
+            "month": [ "Oct", "10" ],
             "year": 2021
         },
         "paymentDue": "22 Sep 2021",
@@ -128,7 +128,7 @@
         },
         "invoiceDate": { 
             "day": 12,
-            "month": [ "Oct", 10],
+            "month": [ "Oct", "10" ],
             "year": 2021
         },
         "paymentDue": "10 Nov 2021",
@@ -165,7 +165,7 @@
         },
         "invoiceDate": {
             "day": 31,
-            "month": [ "Oct", 10],
+            "month": [ "Oct", "10" ],
             "year": 2021
         },
         "paymentDue": "29 Nov 2021",
@@ -202,7 +202,7 @@
         },
         "invoiceDate": { 
             "day": 14,
-            "month": [ "Oct", 10],
+            "month": [ "Oct", "10" ],
             "year": 2021
         },
         "paymentDue": "20 Nov 2021",
@@ -239,7 +239,7 @@
         },
         "invoiceDate": {
             "day": 12,
-            "month": [ "Nov",11],
+            "month": [ "Nov","11" ],
             "year": 2021
         },
         "paymentDue": "11 Dec 2021",

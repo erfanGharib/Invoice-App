@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { displayPanel } from "../functions";
+import { displayPanel, saveData } from "../functions";
 import PanelInput from "./panel-input";
 import { invoiceContext } from "../App";
 import { ReactComponent as TrashIco } from '../assets/icons/trash.svg';
@@ -8,14 +8,74 @@ const panelRef = React.createRef();
 const panelFatherRef = React.createRef();
 
 const Panel = () => {
-    const { setInoviceData, invoiceData } = useContext(invoiceContext);
+    const { setInoviceData, invoiceData, allInvoiceData } = useContext(invoiceContext);
     const { tag, invoiceDate, clientLocation, sellerLoaction, projectDescription, paymentDue, clientName, items, email } = invoiceData === undefined ? '' : invoiceData;
-    
+
     const { s_street, s_postCode, s_city, s_country } = sellerLoaction === undefined ? '' : sellerLoaction;
     const { c_street, c_postCode, c_city, c_country } = clientLocation === undefined ? '' : clientLocation;
-
+    const { month, day, year } = invoiceDate === undefined ? '' : invoiceDate;
+   
     const editInvoice = () => {
-        
+        document.querySelectorAll('.displayPanel input').forEach((input, index) => {
+            if (input.value === '') {
+                input.classList.add('empty-field');
+                panelRef.current.scroll(0, input.offsetTop - 40);
+
+                const appErrCls = document.querySelector('#app-error').classList;
+                appErrCls.add('display-message');
+                setTimeout(() => appErrCls.remove('display-message'), 4000);
+            }
+            else {
+                input.classList.remove('empty-input');
+                const editedData = invoiceData;
+                switch (index) {
+                    case 0:
+                        editedData.sellerLoaction.s_street = input.value;
+                        break;
+                    case 1:
+                        editedData.sellerLoaction.s_city = input.value;
+                        break;
+                    case 2:
+                        editedData.sellerLoaction.s_postCode = input.value;
+                        break;
+                    case 3:
+                        editedData.sellerLoaction.s_country = input.value;
+                        break;
+                    case 4:
+                        editedData.sellerLoaction.s_street = input.value;
+                        break;
+                    case 5:
+                        editedData.sellerLoaction.clientName = input.value;
+                        break;
+                    case 6:
+                        editedData.sellerLoaction.email = input.value;
+                        break;
+                    case 7:
+                        editedData.sellerLoaction.c_street = input.value;
+                        break;
+                    case 8:
+                        editedData.sellerLoaction.c_city = input.value;
+                        break;
+                    case 9:
+                        editedData.sellerLoaction.c_postCode = input.value;
+                        break;
+                    case 10:
+                        editedData.sellerLoaction.c_country = input.value;
+                        break;
+                    case 11:
+                        editedData.sellerLoaction.paymentDue = input.value;
+                        break;
+                    case 12:
+                        editedData.sellerLoaction.projectDescription = input.value;
+                        break;
+                
+                    default:
+                        break;
+                }
+                setInoviceData({...editedData});
+                saveData(allInvoiceData);
+            }
+        });
     }
 
     return (
@@ -25,47 +85,51 @@ const Panel = () => {
         >
             <div onClick={displayPanel} className="bg-black bg-opacity-0 sm:bg-opacity-30 absolute w-full h-full top-0"></div>
 
-            <div 
-                ref={panelRef} 
-                className="left-0 md:left-16 top-19 md:top-0 overflow-y-scroll flex-col items-start flex pl-5 pr-5 md:pl-14 md:pr-10 pb-8 pt-24 md:pt-8 transform -translate-x-full duration-300 transition-transform relative z-20 h-full dark:bg-dark-blue bg-white w-full sm:w-2/3 md:rounded-tr-3xl md:rounded-br-3xl"
+            <div
+                ref={panelRef}
+                className="left-0 md:left-14 top-19 md:top-0 overflow-y-scroll flex-col items-start flex pl-5 pr-5 md:pl-14 md:pr-10 pb-8 pt-24 md:pt-8 transform -translate-x-full duration-300 transition-transform relative z-20 h-full dark:bg-dark-blue bg-white w-full sm:w-2/3 md:rounded-tr-3xl md:rounded-br-3xl"
             >
                 <div className="w-full text-right mb-4">
                     <button className="normal-btn" onClick={displayPanel}>Close</button>
                 </div>
                 <h2 className="text-3xl mb-5">
                     {
-                        tag === undefined ? 
-                        'New Invoice' :
-                        <>
-                            Edit 
-                            <span className="opacity-50">&nbsp;&nbsp;#</span>
-                            <strong className="uppercase tracking-wide">{tag}</strong>
-                        </>
+                        tag === undefined ?
+                            'New Invoice' :
+                            <>
+                                Edit
+                                <span className="opacity-50">&nbsp;#</span>
+                                <strong className="uppercase tracking-wide">{tag}</strong>
+                            </>
                     }
                 </h2>
                 <span className="text-l-purple text-sm mt-2">Bill From</span>
 
-                <PanelInput label='street address' id='s_street' value={s_street} />
+                <PanelInput label='street address' value={s_street} />
 
                 <div className="w-full f-between gap-x-5">
-                    <PanelInput id='city' width={'w-1/3'} value={s_city} />
-                    <PanelInput label='post code' id='post-code' width={'w-1/3'} value={s_postCode} />
-                    <PanelInput id='country' width={'w-1/3'} value={s_country} />
+                    <PanelInput width={'w-1/3'} label='city' value={s_city} />
+                    <PanelInput label='post code' width={'w-1/3'} value={s_postCode} />
+                    <PanelInput width={'w-1/3'} label='country' value={s_country} />
                 </div>
 
                 <span className="text-purple text-sm mt-10">Bill To</span>
-                <PanelInput label="client's name" id='client-name' value={clientName} />
-                <PanelInput label="client's email" id='client-email' value={email} />
-                <PanelInput label="street address" id='street-address' value={c_street} />
+                <PanelInput label="client's name" value={clientName} />
+                <PanelInput label="client's email" value={email} />
+                <PanelInput label="street address" value={c_street} />
 
                 <div className="w-full f-between gap-x-5">
-                    <PanelInput id='city' width={'w-1/3'} value={c_city} />
-                    <PanelInput label='post code' id='post-code' width={'w-1/3'} value={c_postCode} />
-                    <PanelInput id='country' width={'w-1/3'} value={c_country} />
+                    <PanelInput label='city' width={'w-1/3'} value={c_city} />
+                    <PanelInput label='post code' width={'w-1/3'} value={c_postCode} />
+                    <PanelInput label='country' width={'w-1/3'} value={c_country} />
                 </div>
 
-                <PanelInput label="payment terms" id='payment-terms' type='date' />
-                <PanelInput label="project description" id='project description' value={projectDescription} />
+                <PanelInput 
+                    label="payment terms"
+                    type='date' 
+                    value={`${year}-${month}-${day}`} 
+                />
+                <PanelInput label="project description" value={projectDescription} />
 
                 <div className="my-7 w-full">
                     <h3 className="text-xl font-bold text-l-purple">Item List</h3>
@@ -101,8 +165,18 @@ const Panel = () => {
                 </div>
 
                 <div className="flex justify-end items-center w-full text-sm">
-                    <button onClick={displayPanel} className="rounded-btn mr-3 bg-mid-dark-blue text-white">Cancel</button>
-                    <button className="rounded-btn bg-purple text-white">Save Changes</button>
+                    <button 
+                        onClick={displayPanel} 
+                        className="rounded-btn mr-3 bg-mid-dark-blue text-white"
+                    >
+                        Cancel
+                    </button>
+                    <button 
+                        onClick={editInvoice}
+                        className="rounded-btn bg-purple text-white"
+                    >
+                        Save Changes
+                    </button>
                 </div>
             </div>
         </div>
