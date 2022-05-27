@@ -3,31 +3,56 @@ import { displayPanel, saveData } from "../functions";
 import PanelInput from "./panel-input";
 import { invoiceContext } from "../App";
 import { ReactComponent as TrashIco } from '../assets/icons/trash.svg';
+import { get } from '../createElement';
 
 const panelRef = React.createRef();
 const panelFatherRef = React.createRef();
+const monthArr = [
+    "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+]
 
 const Panel = () => {
     const { setInoviceData, invoiceData, allInvoiceData } = useContext(invoiceContext);
-    const { tag, invoiceDate, clientLocation, sellerLoaction, projectDescription, paymentDue, clientName, items, email } = invoiceData === undefined ? '' : invoiceData;
+    const { tag, clientLocation, sellerLoaction, projectDescription, paymentDue, clientName, items, email } = invoiceData === undefined ? '' : invoiceData;
 
     const { s_street, s_postCode, s_city, s_country } = sellerLoaction === undefined ? '' : sellerLoaction;
     const { c_street, c_postCode, c_city, c_country } = clientLocation === undefined ? '' : clientLocation;
-    const { month, day, year } = invoiceDate === undefined ? '' : invoiceDate;
+    const { month, day, year } = paymentDue === undefined ? '' : paymentDue;
    
+    const addZeroToFirst = num => {
+        if(num < 10) return "0" + num;
+        return num;
+    }
+
+    const displayMessage = cls => {
+        const appErrCls = get('#app-error').classList;
+        const appErrIcoCls = get('#app-error span i').classList;
+
+        appErrIcoCls.add(cls);
+        appErrCls.add('display-message', cls);
+
+        setTimeout(() => {
+            appErrCls.remove('display-message', cls);
+            appErrIcoCls.remove(cls);
+        }, 4000);
+    }
+
     const editInvoice = () => {
-        document.querySelectorAll('.displayPanel input').forEach((input, index) => {
+        const editedData = invoiceData;
+        let IS_ANY_INPUT_EMPTY = false;
+
+        get('.displayPanel input', true).forEach((input, index) => {
             if (input.value === '') {
                 input.classList.add('empty-field');
                 panelRef.current.scroll(0, input.offsetTop - 40);
+                displayMessage('error');
 
-                const appErrCls = document.querySelector('#app-error').classList;
-                appErrCls.add('display-message');
-                setTimeout(() => appErrCls.remove('display-message'), 4000);
+                IS_ANY_INPUT_EMPTY = true;
+                console.log('error');
             }
             else {
-                input.classList.remove('empty-input');
-                const editedData = invoiceData;
+                input.classList.remove('empty-field');
                 switch (index) {
                     case 0:
                         editedData.sellerLoaction.s_street = input.value;
@@ -42,36 +67,43 @@ const Panel = () => {
                         editedData.sellerLoaction.s_country = input.value;
                         break;
                     case 4:
-                        editedData.sellerLoaction.s_street = input.value;
+                        editedData.clientName = input.value;
                         break;
                     case 5:
-                        editedData.sellerLoaction.clientName = input.value;
+                        editedData.email = input.value;
                         break;
                     case 6:
-                        editedData.sellerLoaction.email = input.value;
+                        editedData.clientLocation.c_street = input.value;
                         break;
                     case 7:
-                        editedData.sellerLoaction.c_street = input.value;
+                        editedData.clientLocation.c_city = input.value;
                         break;
                     case 8:
-                        editedData.sellerLoaction.c_city = input.value;
+                        editedData.clientLocation.c_postCode = input.value;
                         break;
                     case 9:
-                        editedData.sellerLoaction.c_postCode = input.value;
+                        editedData.clientLocation.c_country = input.value;
                         break;
                     case 10:
-                        editedData.sellerLoaction.c_country = input.value;
+                        editedData.paymentDue = {
+                            year: input.value.substr(0,4),
+                            month: [ monthArr[Number(input.value.substr(5,2))], Number(input.value.substr(5,2)) ],
+                            day: Number(input.value.substr(8,2)),
+                        };
                         break;
                     case 11:
-                        editedData.sellerLoaction.paymentDue = input.value;
-                        break;
-                    case 12:
-                        editedData.sellerLoaction.projectDescription = input.value;
+                        editedData.projectDescription = input.value;
+
+                        if(!IS_ANY_INPUT_EMPTY) {
+                            displayMessage('no-error');
+                            displayPanel();
+                        }
                         break;
                 
                     default:
                         break;
                 }
+
                 setInoviceData({...editedData});
                 saveData(allInvoiceData);
             }
@@ -127,7 +159,7 @@ const Panel = () => {
                 <PanelInput 
                     label="payment terms"
                     type='date' 
-                    value={`${year}-${month}-${day}`} 
+                    value={`${year}-${addZeroToFirst(month[1])}-${addZeroToFirst(day)}`} 
                 />
                 <PanelInput label="project description" value={projectDescription} />
 

@@ -7,7 +7,7 @@ const Invoices = props => {
         <main className="overflow-y-scroll h-3/5 sm:h-3/4 overflow-x-hidden">
             <table className="pr-2 w-full">
                 {props.invoiceData.map(value => 
-                    <Invoice data={value} />
+                    <Invoice data={value} key={value.tag} />
                 )}
             </table>
         </main>

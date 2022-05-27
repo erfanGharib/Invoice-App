@@ -30,7 +30,7 @@ const InvoiceFullStatus = props => {
         <div className="-z-10 mb-28 relative top-20 md:top-12 sm:w-3/4 lg:w-3/5 w-11/12 flex flex-col items-center justify-end">
             <div className="w-full h-5 mb-4">
                 <a href="/" className="normal-btn">
-                    <span className="transform rotate-90 inline-block mr-4"><ArrowIco /></span>
+                    <span className="transform rotate-90 inline-block mr-3"><ArrowIco /></span>
                     <small>Go back</small>
                 </a>
             </div>
@@ -78,7 +78,7 @@ const InvoiceFullStatus = props => {
                         <span>Invoice Date</span>
                         <h2>{invoiceDate.day} {invoiceDate.month[0]} {invoiceDate.year}</h2>
                         <span className="mt-5">Payment Due</span>
-                        <h2>{paymentDue}</h2>
+                        <h2>{paymentDue.day} {paymentDue.month[1]} {paymentDue.year}</h2>
                     </span>
 
                     <span className="flex flex-col">
@@ -97,7 +97,7 @@ const InvoiceFullStatus = props => {
 
                 <table className="dark:bg-white dark:bg-opacity-5 bg-slate-50 dark:text-white w-full f-center flex-col rounded-lg">
                     <thead className="mt-5 w-full px-7 text-sm opacity-60">
-                        <tr className="hidden sm:flex">
+                        <tr className="hidden sm:flex w-full f-between">
                             <td className="w-32 text-left">Item Name</td>
                             <td className="w-10">QTY</td>
                             <td className="w-20 text-right">Price</td>
@@ -108,7 +108,7 @@ const InvoiceFullStatus = props => {
                     <tbody className="w-full px-7 my-5 font-bold">
                         {items.map(v => {
                             return (
-                                <tr key={v.name}>
+                                <tr className="w-full f-between" key={v.name}>
                                     <td className="w-32 text-left">{
                                         window.innerWidth >= 640 ?
                                             v.name :
@@ -126,8 +126,8 @@ const InvoiceFullStatus = props => {
                     </tbody>
 
                     <tfoot className="w-full rounded-b-lg dark:bg-black bg-mid-dark-blue text-white p-7">
-                        <tr>
-                            <td className="opacity-60"><small>Amount Due</small></td>
+                        <tr className="w-full">
+                            <td className="opacity-60 mr-auto"><small>Amount Due</small></td>
                             <td className="font-bold">
                                 <h2 className="text-xl">
                                     &#163;&nbsp;

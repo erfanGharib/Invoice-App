@@ -16,11 +16,15 @@
             "c_country": "United Kingdom"
         },
         "invoiceDate": { 
-            "day": 20,
-            "month": [ "Aug", "08"],
+            "day": 21,
+            "month": [ "Aug", 8 ],
             "year": 2021
         },
-        "paymentDue": "20 Sep 2021",
+        "paymentDue": {
+            "day": 20,
+            "month": [ "Sep", 9 ],
+            "year": 2021
+        },
         "status": 1,
         "projectDescription": "Graphic Design",
         "items": [
@@ -54,10 +58,14 @@
         },
         "invoiceDate": { 
             "day": 1,
-            "month": [ "Oct", "10" ],
+            "month": [ "Oct", 10 ],
             "year": 2021
         },
-        "paymentDue": "05 Nov 2021",
+        "paymentDue": {
+            "day": 5,
+            "month": [ "Nov", 11 ],
+            "year": 2021
+        },
         "status": 0,
         "projectDescription": "Graphic Design",
         "items": [
@@ -91,10 +99,14 @@
         },
         "invoiceDate": {
             "day": 31,
-            "month": [ "Oct", "10" ],
+            "month": [ "Oct", 10 ],
             "year": 2021
         },
-        "paymentDue": "22 Sep 2021",
+        "paymentDue": {
+            "day": 20,
+            "month": [ "Sep", 9 ],
+            "year": 2021
+        },
         "status": 1,
         "projectDescription": "Graphic Design",
         "items": [
@@ -128,10 +140,14 @@
         },
         "invoiceDate": { 
             "day": 12,
-            "month": [ "Oct", "10" ],
+            "month": [ "Oct", 10 ],
             "year": 2021
         },
-        "paymentDue": "10 Nov 2021",
+        "paymentDue":  {
+            "day": 10,
+            "month": [ "Nov", 11 ],
+            "year": 2021
+        },
         "status": 0,
         "projectDescription": "Graphic Design",
         "items": [
@@ -165,10 +181,14 @@
         },
         "invoiceDate": {
             "day": 31,
-            "month": [ "Oct", "10" ],
+            "month": [ "Oct", 10 ],
             "year": 2021
         },
-        "paymentDue": "29 Nov 2021",
+        "paymentDue": {
+            "day": 29,
+            "month": [ "Nov", 11 ],
+            "year": 2021
+        },
         "status": 0,
         "projectDescription": "Graphic Design",
         "items": [
@@ -202,10 +222,14 @@
         },
         "invoiceDate": { 
             "day": 14,
-            "month": [ "Oct", "10" ],
+            "month": [ "Oct", 10 ],
             "year": 2021
         },
-        "paymentDue": "20 Nov 2021",
+        "paymentDue": {
+            "day": 20,
+            "month": [ "Nov", 11 ],
+            "year": 2021
+        },
         "status": 0,
         "projectDescription": "Graphic Design",
         "items": [
@@ -239,10 +263,14 @@
         },
         "invoiceDate": {
             "day": 12,
-            "month": [ "Nov","11" ],
+            "month": [ "Nov", 11 ],
             "year": 2021
         },
-        "paymentDue": "11 Dec 2021",
+        "paymentDue": {
+            "day": 11,
+            "month": [ "Dec", 12 ],
+            "year": 2021
+        },
         "status": 2,
         "projectDescription": "Graphic Design",
         "items": [

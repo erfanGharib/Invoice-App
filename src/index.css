@@ -70,7 +70,7 @@ h2 {
   }
 }
 table > * > * {
-  @apply flex items-center justify-between w-full; 
+  @apply flex items-center; 
 }
 .displayPanel {
   transform: translate(0) !important;
@@ -95,10 +95,27 @@ button:disabled:active {
   opacity: .4 !important;
 }
 
-.x-ico {
+i.error {
   background-image: url('./assets/icons/close.png');
   background-size: cover;
 }
+i.no-error {
+  background-image: url('./assets/icons/tick.png');
+  background-size: cover;
+}
+div.no-error {
+  @apply bg-emerald-500;
+}
+div.error {
+  @apply bg-rose-600;
+}
+div.error > p::after {
+  content: 'Some Fields Are Empty!';
+}
+div.no-error > p::after {
+  content: 'Changes Saved Successfuly!';
+}
+
 .display-message {
   transform: translateX(0) !important;
 }
