@@ -18,7 +18,8 @@ const Panel = () => {
 
     const { s_street, s_postCode, s_city, s_country } = sellerLoaction === undefined ? '' : sellerLoaction;
     const { c_street, c_postCode, c_city, c_country } = clientLocation === undefined ? '' : clientLocation;
-    const { month, day, year } = paymentDue === undefined ? '' : paymentDue;
+    let { month, day, year } = paymentDue === undefined ? '' : paymentDue;
+    month = month === undefined ? '' : month;
    
     const addZeroToFirst = num => {
         if(num < 10) return "0" + num;
@@ -49,7 +50,6 @@ const Panel = () => {
                 displayMessage('error');
 
                 IS_ANY_INPUT_EMPTY = true;
-                console.log('error');
             }
             else {
                 input.classList.remove('empty-field');

@@ -11,7 +11,8 @@ const InvoiceFullStatus = props => {
 
     const deleteInvoice = () => {
         let allInvoiceData_ = typeof allInvoiceData === 'string' ? JSON.parse(allInvoiceData) : allInvoiceData;
-        allInvoiceData_.splice(invoiceData, 1);
+        console.log(allInvoiceData_.indexOf(invoiceData));
+        allInvoiceData_.splice(allInvoiceData_.indexOf(invoiceData), 1);
 
         setAllInoviceData({...allInvoiceData_});
         saveData(allInvoiceData);
