@@ -5,7 +5,6 @@ import './tailwind.css';
 import Panel from './components/panel';
 import AppOverview from './pages/overview/overview';
 import AppInnerview from './pages/innerview/innerview';
-import { get } from './createElement';
 
 const invoiceContext = React.createContext();
 const App = props => {

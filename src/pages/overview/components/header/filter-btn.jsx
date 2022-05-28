@@ -1,14 +1,74 @@
 import React from "react";
 import { ReactComponent as DownArrowIco } from '../../../../assets/icons/down-arrow.svg';
+import { invoiceContext } from "../../../../App";
+import calcTotalPrice, { saveData } from "../../../../functions";
+import { addZeroToFirst } from "../../../../functions";
+
 const FilterBtn = props => {
+    const invoiceContext_ = React.useContext(invoiceContext);
     const dropDownMenuRef = React.createRef();
     const filterMethods = ['status', 'payment', 'name', 'date'];
+
     const displayDropDownMenu = () => {
         dropDownMenuRef.current.classList.toggle('display-drop-down-menu');
     }
+    const sortInvoices = type => {
+        const { allInvoiceData, setAllInoviceData } = invoiceContext_;
+        const editedData = allInvoiceData;
+
+        switch (type) {
+            case 'payment':
+                editedData.sort(( a, b ) => {
+                    let aPrice = calcTotalPrice(a.items);
+                    let bPrice = calcTotalPrice(b.items);
+
+                    if (aPrice < bPrice) return -1;
+                    if (aPrice > bPrice) return 1;
+                    return 0;
+                });
+                break;
+
+            case 'status':
+                editedData.sort(( a, b ) => {
+                    if (a.status < b.status) return -1;
+                    if (a.status > b.status) return 1;
+                    return 0;
+                });
+                break;
+
+            case 'name':
+                editedData.sort(( a, b ) => {
+                    if (a.clientName < b.clientName) return -1;
+                    if (a.clientName > b.clientName) return 1;
+                    return 0;
+                });
+                break;
+
+            case 'date':
+                editedData.sort(( a, b ) => {
+                    const date = p => {
+                        const { day, year, month } = p.paymentDue;
+                        return `${year}${addZeroToFirst(month)}${addZeroToFirst(day)}` 
+                    }
+
+                    if (date(a) < date(b)) return -1;
+                    if (date(a) > date(b)) return 1;
+                    return 0;
+                });
+                break;
+        
+            default:
+                break;
+        }
+
+        // console.log(editedData);
+        console.log(allInvoiceData);
+        setAllInoviceData([...editedData]);
+        saveData(allInvoiceData);
+    }
 
     return (
-        <div className="flex flex-row">
+        <div  className="flex flex-row">
             <div className="sm:w-40 w-24 relative sm:mr-5 my-auto flex items-center">
                 <button id="filter-btn" onClick={displayDropDownMenu} className="hover:underline font-semibold underline-offset-2 text-base">
                     <span>Filter&nbsp;</span>
@@ -16,11 +76,12 @@ const FilterBtn = props => {
                     <DownArrowIco />
                 </button>
 
-                <div ref={dropDownMenuRef} className="absolute hidden opacity-0 transition-all transform scale-y-75 z-10 origin-top top-7 sm:right-0 right-4 w-full p-1.5 dark:text-dark-blue bg-mid-dark-blue text-white rounded-md dark:bg-white shadow-lg flex-col items-start justify-between">
+                <div ref={dropDownMenuRef} className="absolute hidden z-10 origin-top top-7 sm:right-0 right-4 w-full p-1.5 dark:text-dark-blue bg-mid-dark-blue text-white rounded-md dark:bg-white shadow-lg flex-col items-start justify-between">
                     {filterMethods.map(value => 
                         <button 
                             className="p-1 w-full hover:bg-white hover:bg-opacity-20 rounded-md" 
                             key={value}
+                            onClick={() => {sortInvoices(value); displayDropDownMenu()}}
                         >
                             {value}
                         </button>

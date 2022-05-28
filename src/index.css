@@ -40,12 +40,8 @@ svg {
 }
 .display-drop-down-menu {
   display: flex !important;
-  animation: name .2s forwards;
 }
-@keyframes name {
-  from {transform: scale(1,0);opacity: 0;}
-  to {transform: scale(1,1);opacity: 1;}
-}
+
 ::-webkit-scrollbar {
   width: 5px;
 }

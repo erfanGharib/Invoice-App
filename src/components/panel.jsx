@@ -4,6 +4,7 @@ import PanelInput from "./panel-input";
 import { invoiceContext } from "../App";
 import { ReactComponent as TrashIco } from '../assets/icons/trash.svg';
 import { get } from '../createElement';
+import { addZeroToFirst } from "../functions";
 
 const panelRef = React.createRef();
 const panelFatherRef = React.createRef();
@@ -20,11 +21,6 @@ const Panel = () => {
     const { c_street, c_postCode, c_city, c_country } = clientLocation === undefined ? '' : clientLocation;
     let { month, day, year } = paymentDue === undefined ? '' : paymentDue;
     month = month === undefined ? '' : month;
-   
-    const addZeroToFirst = num => {
-        if(num < 10) return "0" + num;
-        return num;
-    }
 
     const displayMessage = cls => {
         const appErrCls = get('#app-error').classList;
