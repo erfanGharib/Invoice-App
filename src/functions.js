@@ -21,15 +21,18 @@ const saveData = data => {
 // 2. return sum of all items
 const calcTotalPrice = items => {
     let totalPrice = 0;
-    items.forEach(value => {
-        totalPrice += (value.qty * value.price);
-    });
-    return totalPrice;
+    if (items === undefined || items.length === 0) return '';
+    else {
+        items.map(value =>
+            totalPrice += (value.qty * value.price)
+        );
+        return totalPrice;
+    }
 }
 
 // make month and day double digit
 const addZeroToFirst = num => {
-    if(num < 10) return "0" + num;
+    if (num < 10) return "0" + num;
     return num;
 }
 

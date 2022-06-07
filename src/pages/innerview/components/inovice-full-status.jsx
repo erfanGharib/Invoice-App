@@ -11,7 +11,6 @@ const InvoiceFullStatus = props => {
 
     const deleteInvoice = () => {
         let allInvoiceData_ = typeof allInvoiceData === 'string' ? JSON.parse(allInvoiceData) : allInvoiceData;
-        console.log(allInvoiceData_.indexOf(invoiceData));
         allInvoiceData_.splice(allInvoiceData_.indexOf(invoiceData), 1);
 
         setAllInoviceData({...allInvoiceData_});
@@ -28,7 +27,7 @@ const InvoiceFullStatus = props => {
     }
 
     return (
-        <div className="-z-10 mb-28 relative top-20 md:top-12 sm:w-3/4 lg:w-3/5 w-11/12 flex flex-col items-center justify-end">
+        <div className="-z-10 mb-40 relative top-20 md:top-12 sm:w-3/4 lg:w-3/5 w-11/12 flex flex-col items-center justify-end">
             <div className="w-full h-5 mb-4">
                 <a href="/" className="normal-btn">
                     <span className="transform rotate-90 inline-block mr-3"><ArrowIco /></span>
@@ -107,15 +106,19 @@ const InvoiceFullStatus = props => {
                     </thead>
 
                     <tbody className="w-full px-7 my-5 font-bold">
-                        {items.map(v => {
+                        {items.map((v,index) => {
                             return (
-                                <tr className="w-full f-between" key={v.name}>
+                                <tr className="w-full f-between" key={index}>
                                     <td className="w-32 text-left">{
                                         window.innerWidth >= 640 ?
                                             v.name :
                                             <div className="flex flex-col">
                                                 {v.name}
-                                                <span className="opacity-60">{v.qty}&nbsp;x&nbsp;&#163;&nbsp;{v.price}</span>
+                                                <span 
+                                                    className="opacity-60 break-normal"
+                                                >
+                                                    {v.qty}&nbsp;x&nbsp;&#163;&nbsp;{v.price}
+                                                </span>
                                             </div>
                                     }</td>
                                     <td className="w-10 hidden sm:table-cell">{v.qty}</td>

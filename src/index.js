@@ -18,7 +18,7 @@ else savedData = JSON.parse(localStorage.getItem('invoiceData'));
 ReactDOM.render(
     <BrowserRouter>
         <Routes>
-            <Route path='/' element={<App IS_OVERVIEW_PAGE allInvoiceData={savedData} />} />
+            <Route path='/' element={<App IS_OVERVIEW_PAGE allInvoiceData={savedData} currentInvoiceData={savedData[0]} />} />
             {savedData.map((value, index) => 
                 <Route 
                     path={`/${value.tag}`} 

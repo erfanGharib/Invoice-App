@@ -12,9 +12,9 @@ const App = props => {
   const [allInvoiceData, setAllInoviceData] = useState(props.allInvoiceData);
 
   return (
-    <invoiceContext.Provider 
+    <invoiceContext.Provider
       value={{
-        invoiceData: invoiceData, 
+        invoiceData: invoiceData,
         allInvoiceData: allInvoiceData,
         setInoviceData: setInoviceData,
         setAllInoviceData: setAllInoviceData,
@@ -27,11 +27,11 @@ const App = props => {
       </div>
 
       <SideBar />
-      <Panel />
+      <Panel IS_EDIT_PANEL={!props.IS_OVERVIEW_PAGE} />
       {
-        props.IS_OVERVIEW_PAGE ? 
-        <AppOverview /> : 
-        <AppInnerview />
+        props.IS_OVERVIEW_PAGE ?
+          <AppOverview /> :
+          <AppInnerview />
       }
     </invoiceContext.Provider>
   );

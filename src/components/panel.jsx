@@ -1,27 +1,63 @@
 import React, { useContext } from "react";
-import { displayPanel, saveData } from "../functions";
+import { displayPanel, saveData, addZeroToFirst } from "../functions";
 import PanelInput from "./panel-input";
 import { invoiceContext } from "../App";
 import { ReactComponent as TrashIco } from '../assets/icons/trash.svg';
 import { get } from '../createElement';
-import { addZeroToFirst } from "../functions";
 
 const panelRef = React.createRef();
 const panelFatherRef = React.createRef();
 const monthArr = [
     "Jan", "Feb", "Mar", "Apr", "May", "Jun",
     "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
-]
+];
 
-const Panel = () => {
-    const { setInoviceData, invoiceData, allInvoiceData } = useContext(invoiceContext);
-    const { tag, clientLocation, sellerLoaction, projectDescription, paymentDue, clientName, items, email } = invoiceData === undefined ? '' : invoiceData;
+const Panel = ({ IS_EDIT_PANEL }) => {
+    const { setInoviceData, setAllInoviceData, invoiceData, allInvoiceData } = useContext(invoiceContext);
+    // make copy of invoiceData to make it absulotly iterible
+    const invoiceData_ = JSON.parse(JSON.stringify(invoiceData));
 
-    const { s_street, s_postCode, s_city, s_country } = sellerLoaction === undefined ? '' : sellerLoaction;
-    const { c_street, c_postCode, c_city, c_country } = clientLocation === undefined ? '' : clientLocation;
-    let { month, day, year } = paymentDue === undefined ? '' : paymentDue;
+    // empty all value of invoice object
+    if (!IS_EDIT_PANEL) {
+        let i = 0;
+        for (let key in invoiceData_) {
+            if (i === 4 || i === 3 || i === 5 || i === 6) {
+                for (let key_ in invoiceData_[key]) {
+                    invoiceData_[key][key_] = '';
+                }
+            }
+            else invoiceData_[key] = '';
+
+            i++;
+        }
+    }
+
+    let { tag, clientLocation, sellerLoaction, projectDescription, paymentDue, clientName, items, email } = invoiceData_ === undefined ? '' : invoiceData_;
+
+    let { s_street, s_postCode, s_city, s_country } = sellerLoaction === undefined ? '' : { ...sellerLoaction };
+    let { c_street, c_postCode, c_city, c_country } = clientLocation === undefined ? '' : { ...clientLocation };
+    let { month, day, year } = paymentDue === undefined ? '' : { ...paymentDue };
     month = month === undefined ? '' : month;
 
+    // write comments
+    const createUniqueTag = () => {
+        const alphabet = 'abcdefghijklmnopqrstuvwxyz';
+        const rnd = (max = 9) => {
+            return alphabet[Math.floor(Math.random() * (parseFloat(max) - parseFloat(0) + 1) + parseFloat(0))];
+        }
+        let tag_ = rnd(26) + rnd(26) + rnd() + rnd() + rnd() + rnd();
+        if (allInvoiceData.some(value => value === tag_)) return tag_;
+        console.log(tag_);
+        createUniqueTag();
+    }
+    const addItem = () => {
+        items.push({
+            name: '',
+            qty: '',
+            price: ''
+        });
+        setInoviceData(invoiceData_);
+    }
     const displayMessage = cls => {
         const appErrCls = get('#app-error').classList;
         const appErrIcoCls = get('#app-error span i').classList;
@@ -34,9 +70,8 @@ const Panel = () => {
             appErrIcoCls.remove(cls);
         }, 4000);
     }
-
-    const editInvoice = () => {
-        const editedData = invoiceData;
+    // clean codes
+    const editInvoice = IS_EDIT_PANEL => {
         let IS_ANY_INPUT_EMPTY = false;
 
         get('.displayPanel input', true).forEach((input, index) => {
@@ -51,56 +86,64 @@ const Panel = () => {
                 input.classList.remove('empty-field');
                 switch (index) {
                     case 0:
-                        editedData.sellerLoaction.s_street = input.value;
+                        sellerLoaction.s_street = input.value;
                         break;
                     case 1:
-                        editedData.sellerLoaction.s_city = input.value;
+                        sellerLoaction.s_city = input.value;
                         break;
                     case 2:
-                        editedData.sellerLoaction.s_postCode = input.value;
+                        sellerLoaction.s_postCode = input.value;
                         break;
                     case 3:
-                        editedData.sellerLoaction.s_country = input.value;
+                        sellerLoaction.s_country = input.value;
                         break;
                     case 4:
-                        editedData.clientName = input.value;
+                        clientName = input.value;
                         break;
                     case 5:
-                        editedData.email = input.value;
+                        email = input.value;
                         break;
                     case 6:
-                        editedData.clientLocation.c_street = input.value;
+                        clientLocation.c_street = input.value;
                         break;
                     case 7:
-                        editedData.clientLocation.c_city = input.value;
+                        clientLocation.c_city = input.value;
                         break;
                     case 8:
-                        editedData.clientLocation.c_postCode = input.value;
+                        clientLocation.c_postCode = input.value;
                         break;
                     case 9:
-                        editedData.clientLocation.c_country = input.value;
+                        clientLocation.c_country = input.value;
                         break;
                     case 10:
-                        editedData.paymentDue = {
-                            year: input.value.substr(0,4),
-                            month: [ monthArr[Number(input.value.substr(5,2))], Number(input.value.substr(5,2)) ],
-                            day: Number(input.value.substr(8,2)),
+                        paymentDue = {
+                            year: input.value.substr(0, 4),
+                            month: [monthArr[Number(input.value.substr(5, 2))], Number(input.value.substr(5, 2))],
+                            day: Number(input.value.substr(8, 2)),
                         };
                         break;
                     case 11:
-                        editedData.projectDescription = input.value;
+                        projectDescription = input.value;
 
-                        if(!IS_ANY_INPUT_EMPTY) {
+                        if (!IS_ANY_INPUT_EMPTY) {
                             displayMessage('no-error');
                             displayPanel();
                         }
                         break;
-                
-                    default:
-                        break;
+
+                    default: break;
                 }
 
-                setInoviceData({...editedData});
+                if (IS_EDIT_PANEL) setInoviceData(invoiceData_);
+                else {
+                    const allInvoiceData_ = { ...allInvoiceData };
+                    allInvoiceData_.status = 0;
+                    allInvoiceData_.tag = createUniqueTag();
+
+                    allInvoiceData_.push(invoiceData_);
+                    setAllInoviceData(allInvoiceData_);
+                }
+
                 saveData(allInvoiceData);
             }
         });
@@ -152,11 +195,22 @@ const Panel = () => {
                     <PanelInput label='country' width={'w-1/3'} value={c_country} />
                 </div>
 
-                <PanelInput 
-                    label="payment terms"
-                    type='date' 
-                    value={`${year}-${addZeroToFirst(month[1])}-${addZeroToFirst(day)}`} 
-                />
+                <div className="w-full f-between gap-x-5">
+                    {
+                        IS_EDIT_PANEL ?
+                            '' :
+                            <PanelInput
+                                label="invoice date"
+                                type='date'
+                            />
+                    }
+                    <PanelInput
+                        label="payment terms"
+                        type='date'
+                        value={IS_EDIT_PANEL ? `${year}-${addZeroToFirst(month[1])}-${addZeroToFirst(day)}` : ''}
+                    />
+                </div>
+
                 <PanelInput label="project description" value={projectDescription} />
 
                 <div className="my-7 w-full">
@@ -175,7 +229,7 @@ const Panel = () => {
                                 if edit invoice panel opened , map on invoice items
                                 else return empty string 
                             */}
-                            {items === undefined ? '' : items.map(({ name, qty, price }) =>
+                            {(items === undefined || items.length === 0) ? '' : items.map(({ name, qty, price }) =>
                                 <div className="w-full gap-x-4 f-between mt-2">
                                     <PanelInput width='w-1/2' mt='mt-0' value={name} />
                                     <PanelInput width='w-1/6' mt='mt-0' value={qty} />
@@ -189,17 +243,22 @@ const Panel = () => {
                         </div>
                     </div>
 
-                    <button className="rounded-btn text-sm w-full text-white bg-mid-dark-blue">Add Item</button>
+                    <button
+                        onClick={addItem}
+                        className="rounded-btn text-sm w-full text-white bg-mid-dark-blue"
+                    >
+                        Add Item
+                    </button>
                 </div>
 
                 <div className="flex justify-end items-center w-full text-sm">
-                    <button 
-                        onClick={displayPanel} 
+                    <button
+                        onClick={displayPanel}
                         className="rounded-btn mr-3 bg-mid-dark-blue text-white"
                     >
                         Cancel
                     </button>
-                    <button 
+                    <button
                         onClick={editInvoice}
                         className="rounded-btn bg-purple text-white"
                     >

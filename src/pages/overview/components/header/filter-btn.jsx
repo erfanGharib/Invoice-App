@@ -1,8 +1,7 @@
 import React from "react";
 import { ReactComponent as DownArrowIco } from '../../../../assets/icons/down-arrow.svg';
 import { invoiceContext } from "../../../../App";
-import calcTotalPrice, { saveData } from "../../../../functions";
-import { addZeroToFirst } from "../../../../functions";
+import calcTotalPrice, { addZeroToFirst, saveData } from "../../../../functions";
 
 const FilterBtn = props => {
     const invoiceContext_ = React.useContext(invoiceContext);
@@ -12,6 +11,13 @@ const FilterBtn = props => {
     const displayDropDownMenu = () => {
         dropDownMenuRef.current.classList.toggle('display-drop-down-menu');
     }
+    const highlightBtn = ({target}) => {
+        target.parentElement.childNodes.forEach(btn => {
+            btn.classList.remove('bg-white', 'bg-opacity-20');
+        });
+        target.classList.add('bg-white', 'bg-opacity-20');
+    }
+    // clean codes
     const sortInvoices = type => {
         const { allInvoiceData, setAllInoviceData } = invoiceContext_;
         const editedData = allInvoiceData;
@@ -61,8 +67,6 @@ const FilterBtn = props => {
                 break;
         }
 
-        // console.log(editedData);
-        console.log(allInvoiceData);
         setAllInoviceData([...editedData]);
         saveData(allInvoiceData);
     }
@@ -81,7 +85,11 @@ const FilterBtn = props => {
                         <button 
                             className="p-1 w-full hover:bg-white hover:bg-opacity-20 rounded-md" 
                             key={value}
-                            onClick={() => {sortInvoices(value); displayDropDownMenu()}}
+                            onClick={e => {
+                                sortInvoices(value); 
+                                displayDropDownMenu(); 
+                                highlightBtn(e);
+                            }}
                         >
                             {value}
                         </button>
