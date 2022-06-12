@@ -90,31 +90,3 @@ button:disabled:hover {
 button:disabled:active {
   opacity: .4 !important;
 }
-
-i.error {
-  background-image: url('./assets/icons/close.png');
-  background-size: cover;
-}
-i.no-error {
-  background-image: url('./assets/icons/tick.png');
-  background-size: cover;
-}
-div.no-error {
-  @apply bg-emerald-500;
-}
-div.error {
-  @apply bg-rose-600;
-}
-div.error > p::after {
-  content: 'Some Fields Are Empty!';
-}
-div.no-error > p::after {
-  content: 'Changes Saved Successfuly!';
-}
-
-.display-message {
-  transform: translateX(0) !important;
-}
-.empty-field {
-  @apply border-2 bg-rose-200 dark:bg-rose-500 dark:bg-opacity-20;
-}

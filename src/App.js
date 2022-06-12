@@ -21,11 +21,6 @@ const App = props => {
         invoiceIndex: props.invoiceIndex
       }}
     >
-      <div id='app-error' className='transition-transform duration-300 f-between shadow-xl z-50 text-white rounded-l-full text-sm transform translate-x-60 right-0 absolute py-2 px-3 top-5'>
-        <span className='p-0.5 mr-2 border rounded-full w-auto'><i className='rounded-full w-3 h-3 block'></i></span>
-        <p className='mt-1'></p>
-      </div>
-
       <SideBar />
       <Panel IS_EDIT_PANEL={!props.IS_OVERVIEW_PAGE} />
       {

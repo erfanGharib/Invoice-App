@@ -4,13 +4,27 @@ import PanelInput from "./panel-input";
 import { invoiceContext } from "../App";
 import { ReactComponent as TrashIco } from '../assets/icons/trash.svg';
 import { get } from '../createElement';
+import { Notyf } from "notyf";
+import 'notyf/notyf.min.css';
 
+const notyf = new Notyf({
+    types: [
+        {
+            type: 'error',
+            background: 'rgb(225 29 72)'
+        },
+        {
+            type: 'success',
+            background: 'rgb(16 185 129)'
+        },
+    ]
+});
 const panelRef = React.createRef();
 const panelFatherRef = React.createRef();
 const monthArr = [
     "Jan", "Feb", "Mar", "Apr", "May", "Jun",
     "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
-];
+];         
 
 const Panel = ({ IS_EDIT_PANEL }) => {
     const { setInoviceData, setAllInoviceData, invoiceData, allInvoiceData } = useContext(invoiceContext);
@@ -58,29 +72,16 @@ const Panel = ({ IS_EDIT_PANEL }) => {
         });
         setInoviceData(invoiceData_);
     }
-    const displayMessage = cls => {
-        const appErrCls = get('#app-error').classList;
-        const appErrIcoCls = get('#app-error span i').classList;
 
-        appErrIcoCls.add(cls);
-        appErrCls.add('display-message', cls);
-
-        setTimeout(() => {
-            appErrCls.remove('display-message', cls);
-            appErrIcoCls.remove(cls);
-        }, 4000);
-    }
     // clean codes
     const editInvoice = IS_EDIT_PANEL => {
         let IS_ANY_INPUT_EMPTY = false;
 
         get('.displayPanel input', true).forEach((input, index) => {
             if (input.value === '') {
+                IS_ANY_INPUT_EMPTY = true;
                 input.classList.add('empty-field');
                 panelRef.current.scroll(0, input.offsetTop - 40);
-                displayMessage('error');
-
-                IS_ANY_INPUT_EMPTY = true;
             }
             else {
                 input.classList.remove('empty-field');
@@ -124,11 +125,6 @@ const Panel = ({ IS_EDIT_PANEL }) => {
                         break;
                     case 11:
                         projectDescription = input.value;
-
-                        if (!IS_ANY_INPUT_EMPTY) {
-                            displayMessage('no-error');
-                            displayPanel();
-                        }
                         break;
 
                     default: break;
@@ -147,6 +143,10 @@ const Panel = ({ IS_EDIT_PANEL }) => {
                 saveData(allInvoiceData);
             }
         });
+
+        if(IS_ANY_INPUT_EMPTY) notyf.error('Some Fields Are Empty!')
+        else if(!IS_ANY_INPUT_EMPTY && !IS_EDIT_PANEL) notyf.success('Changes Saved Successfuly!');
+        else notyf.success('Invoice Created Successfuly!');
     }
 
     return (
