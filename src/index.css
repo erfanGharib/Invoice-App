@@ -90,3 +90,24 @@ button:disabled:hover {
 button:disabled:active {
   opacity: .4 !important;
 }
+.shake {
+  animation: shake .6s;
+}
+@keyframes shake {
+  0% {transform: translateX(0); background: rgb(31 33 58);}
+  25% {transform: translateX(5%); background: rgb(225 29 72);}
+  50% {transform: translateX(-5%); background: rgb(225 29 72);}
+  100% {transform: translateX(0); background: rgb(31 33 58);}
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+input[type="number"]:hover,
+input[type="number"]:focus {
+  -moz-appearance: number-input;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  display: none;
+}

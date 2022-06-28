@@ -6,7 +6,7 @@ import calcTotalPrice, { addZeroToFirst, saveData } from "../../../../functions"
 const FilterBtn = props => {
     const invoiceContext_ = React.useContext(invoiceContext);
     const dropDownMenuRef = React.createRef();
-    const filterMethods = ['status', 'payment', 'name', 'date'];
+    const filterMethods = ['status', 'payment', "client's name", 'date'];
 
     const displayDropDownMenu = () => {
         dropDownMenuRef.current.classList.toggle('display-drop-down-menu');
@@ -42,7 +42,7 @@ const FilterBtn = props => {
                 });
                 break;
 
-            case 'name':
+            case "client's name":
                 editedData.sort(( a, b ) => {
                     if (a.clientName < b.clientName) return -1;
                     if (a.clientName > b.clientName) return 1;
@@ -83,7 +83,7 @@ const FilterBtn = props => {
                 <div ref={dropDownMenuRef} className="absolute hidden z-10 origin-top top-7 sm:right-0 right-4 w-full p-1.5 dark:text-dark-blue bg-mid-dark-blue text-white rounded-md dark:bg-white shadow-lg flex-col items-start justify-between">
                     {filterMethods.map(value => 
                         <button 
-                            className="p-1 w-full hover:bg-white hover:bg-opacity-20 rounded-md" 
+                            className="p-2 w-full hover:bg-white capitalize hover:bg-opacity-20 rounded-md" 
                             key={value}
                             onClick={e => {
                                 sortInvoices(value); 

@@ -1,7 +1,7 @@
 import { React } from "react";
 
 const PanelInput = props => {
-    const { label, type, width, mt, value } = props;
+    const { label, type, width, mt, value, event, ref_ } = props;
     
     return (
         <label 
@@ -9,6 +9,8 @@ const PanelInput = props => {
         >
             <span className="text-inherit">{label}</span>
             <input
+                ref={ref_}
+                onInput={event}
                 type={type === undefined ? 'text' : type}
                 defaultValue={value === undefined ? '' : value}
                 className="dark:bg-mid-dark-blue w-full border-rose-500 transition-colors bg-slate-200 rounded-md pt-1.5 pb-1 px-1 sm:pt-3 sm:pb-3 mt-1.5 sm:px-4" 

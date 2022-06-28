@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { displayPanel, saveData, addZeroToFirst } from "../functions";
 import PanelInput from "./panel-input";
 import { invoiceContext } from "../App";
@@ -28,6 +28,10 @@ const monthArr = [
 
 const Panel = ({ IS_EDIT_PANEL }) => {
     const { setInoviceData, setAllInoviceData, invoiceData, allInvoiceData } = useContext(invoiceContext);
+    const totalPriceRef = React.createRef();
+    const qtyRef = React.createRef();
+    const priceRef = React.createRef();
+
     // make copy of invoiceData to make it absulotly iterible
     const invoiceData_ = JSON.parse(JSON.stringify(invoiceData));
 
@@ -46,107 +50,147 @@ const Panel = ({ IS_EDIT_PANEL }) => {
         }
     }
 
-    let { tag, clientLocation, sellerLoaction, projectDescription, paymentDue, clientName, items, email } = invoiceData_ === undefined ? '' : invoiceData_;
-
+    let { tag, clientLocation, sellerLoaction, projectDescription, paymentDue, clientName, email } = invoiceData_ === undefined ? '' : {...invoiceData_};
     let { s_street, s_postCode, s_city, s_country } = sellerLoaction === undefined ? '' : { ...sellerLoaction };
     let { c_street, c_postCode, c_city, c_country } = clientLocation === undefined ? '' : { ...clientLocation };
     let { month, day, year } = paymentDue === undefined ? '' : { ...paymentDue };
     month = month === undefined ? '' : month;
 
+    if(invoiceData_.items === '') invoiceData_.items = [];
+    const [ items_, setItems ] = useState(invoiceData_.items);
+
+    let IS_ANY_ITEM_ADDED = true;
+    let IS_ANY_INPUT_EMPTY;
+
     // write comments
     const createUniqueTag = () => {
         const alphabet = 'abcdefghijklmnopqrstuvwxyz';
-        const rnd = (max = 9) => {
-            return alphabet[Math.floor(Math.random() * (parseFloat(max) - parseFloat(0) + 1) + parseFloat(0))];
+        const rnd = (returnNum = true, max = 9) => {
+            let rndNum = Math.floor(Math.random() * (parseFloat(max) - parseFloat(0) + 1) + parseFloat(0));
+            if(returnNum) return rndNum;
+            return alphabet[rndNum];
         }
-        let tag_ = rnd(26) + rnd(26) + rnd() + rnd() + rnd() + rnd();
-        if (allInvoiceData.some(value => value === tag_)) return tag_;
-        console.log(tag_);
+        let tag_ = rnd(false, 26) + rnd(false, 26) + rnd() + rnd() + rnd() + rnd();
+
+        if (allInvoiceData.some(value => value.tag !== tag_)) return tag_;
         createUniqueTag();
     }
     const addItem = () => {
-        items.push({
+        items_.push({
             name: '',
             qty: '',
             price: ''
         });
-        setInoviceData(invoiceData_);
+        setItems([...items_]);
     }
-
+    const deleteItem = itemsIndex => {
+        items_.splice(itemsIndex, 1);
+        setItems([...items_]);
+    }
+    const updatePrice = () => totalPriceRef.current.innerHTML = qtyRef.current.value * priceRef.current.value;
     // clean codes
-    const editInvoice = IS_EDIT_PANEL => {
-        let IS_ANY_INPUT_EMPTY = false;
-
-        get('.displayPanel input', true).forEach((input, index) => {
-            if (input.value === '') {
+    const editInvoice = () => {
+        get('.displayPanel input', true).forEach(({value, classList, offsetTop}, index, allInput) => {
+            if (value === '') {
+                classList.add('empty-field');
                 IS_ANY_INPUT_EMPTY = true;
-                input.classList.add('empty-field');
-                panelRef.current.scroll(0, input.offsetTop - 40);
+                panelRef.current.scroll(0, offsetTop - 40);
             }
-            else {
-                input.classList.remove('empty-field');
+            else if(value !== '') {
+                classList.remove('empty-field');
+                IS_ANY_INPUT_EMPTY = false;
+            }
+            if(allInput.length < 14) {
+                IS_ANY_ITEM_ADDED = false;
+                get('#add-item-btn').classList.add('shake');
+                setTimeout(() => get('#add-item-btn').classList.remove('shake'), 600);
+            }
+            else if(!IS_ANY_INPUT_EMPTY) {
                 switch (index) {
                     case 0:
-                        sellerLoaction.s_street = input.value;
+                        sellerLoaction.s_street = value;
                         break;
                     case 1:
-                        sellerLoaction.s_city = input.value;
+                        sellerLoaction.s_city = value;
                         break;
                     case 2:
-                        sellerLoaction.s_postCode = input.value;
+                        sellerLoaction.s_postCode = value;
                         break;
                     case 3:
-                        sellerLoaction.s_country = input.value;
+                        sellerLoaction.s_country = value;
                         break;
                     case 4:
-                        clientName = input.value;
+                        invoiceData_.clientName = value;
                         break;
                     case 5:
-                        email = input.value;
+                        invoiceData_.email = value;
                         break;
                     case 6:
-                        clientLocation.c_street = input.value;
+                        clientLocation.c_street = value;
                         break;
                     case 7:
-                        clientLocation.c_city = input.value;
+                        clientLocation.c_city = value;
                         break;
                     case 8:
-                        clientLocation.c_postCode = input.value;
+                        clientLocation.c_postCode = value;
                         break;
                     case 9:
-                        clientLocation.c_country = input.value;
+                        clientLocation.c_country = value;
                         break;
                     case 10:
-                        paymentDue = {
-                            year: input.value.substr(0, 4),
-                            month: [monthArr[Number(input.value.substr(5, 2))], Number(input.value.substr(5, 2))],
-                            day: Number(input.value.substr(8, 2)),
+                        invoiceData_.invoiceDate = {
+                            year: value.substr(0, 4),
+                            month: [monthArr[Number(value.substr(5, 2))], Number(value.substr(5, 2))],
+                            day: Number(value.substr(8, 2)),
                         };
                         break;
                     case 11:
-                        projectDescription = input.value;
+                        invoiceData_.paymentDue = {
+                            year: value.substr(0, 4),
+                            month: [monthArr[Number(value.substr(5, 2))], Number(value.substr(5, 2))],
+                            day: Number(value.substr(8, 2)),
+                        };
                         break;
-
+                    case 12:
+                        invoiceData_.projectDescription = value;
+                        break;
+                    case 13:
+                        let newItem = [...items_];
+                        get('#items > div', true).forEach((v, index, arr) => {
+                            v.childNodes.forEach((v, i) => {
+                                const value_ = v.querySelector('input') === null ? '' : v.querySelector('input').value;
+                                if(i === 0) newItem[index].name = value_;
+                                if(i === 1) newItem[index].qty = value_;
+                                if(i === 2) newItem[index].price = value_;
+                            });
+                        });
+                        console.log(newItem);
+                        invoiceData_.items = newItem;
+                        break;
                     default: break;
                 }
-
-                if (IS_EDIT_PANEL) setInoviceData(invoiceData_);
-                else {
-                    const allInvoiceData_ = { ...allInvoiceData };
-                    allInvoiceData_.status = 0;
-                    allInvoiceData_.tag = createUniqueTag();
-
-                    allInvoiceData_.push(invoiceData_);
-                    setAllInoviceData(allInvoiceData_);
-                }
-
-                saveData(allInvoiceData);
             }
         });
 
-        if(IS_ANY_INPUT_EMPTY) notyf.error('Some Fields Are Empty!')
-        else if(!IS_ANY_INPUT_EMPTY && !IS_EDIT_PANEL) notyf.success('Changes Saved Successfuly!');
-        else notyf.success('Invoice Created Successfuly!');
+        if(!IS_ANY_ITEM_ADDED) notyf.error('No Item Added!');
+        if(IS_ANY_INPUT_EMPTY) notyf.error('Some Fields Are Empty!');
+        else if(IS_ANY_ITEM_ADDED && !IS_ANY_INPUT_EMPTY && !IS_EDIT_PANEL) {
+            invoiceData_.status = 0;
+            invoiceData_.tag = createUniqueTag();
+            
+            allInvoiceData.push(invoiceData_);
+            setAllInoviceData([...allInvoiceData]);
+            saveData(allInvoiceData);
+    
+            notyf.success('Invoice Created Successfuly!');
+            displayPanel();
+        }
+        else if(IS_ANY_ITEM_ADDED && !IS_ANY_INPUT_EMPTY) {
+            setInoviceData(invoiceData_);
+            saveData(allInvoiceData);
+            notyf.success('Changes Saved Successfuly!');
+            displayPanel();
+        }
     }
 
     return (
@@ -165,7 +209,7 @@ const Panel = ({ IS_EDIT_PANEL }) => {
                 </div>
                 <h2 className="text-3xl mb-5">
                     {
-                        tag === undefined ?
+                        !IS_EDIT_PANEL ?
                             'New Invoice' :
                             <>
                                 Edit
@@ -179,20 +223,20 @@ const Panel = ({ IS_EDIT_PANEL }) => {
                 <PanelInput label='street address' value={s_street} />
 
                 <div className="w-full f-between gap-x-5">
-                    <PanelInput width={'w-1/3'} label='city' value={s_city} />
-                    <PanelInput label='post code' width={'w-1/3'} value={s_postCode} />
-                    <PanelInput width={'w-1/3'} label='country' value={s_country} />
+                    <PanelInput width='w-1/3' label='city' value={s_city} />
+                    <PanelInput label='post code' width='w-1/3' value={s_postCode} />
+                    <PanelInput width='w-1/3' label='country' value={s_country} />
                 </div>
 
                 <span className="text-purple text-sm mt-10">Bill To</span>
                 <PanelInput label="client's name" value={clientName} />
-                <PanelInput label="client's email" value={email} />
+                <PanelInput label="client's email" type='email' value={email} />
                 <PanelInput label="street address" value={c_street} />
 
                 <div className="w-full f-between gap-x-5">
-                    <PanelInput label='city' width={'w-1/3'} value={c_city} />
-                    <PanelInput label='post code' width={'w-1/3'} value={c_postCode} />
-                    <PanelInput label='country' width={'w-1/3'} value={c_country} />
+                    <PanelInput label='city' width='w-1/3' value={c_city} />
+                    <PanelInput label='post code' width='w-1/3' value={c_postCode} />
+                    <PanelInput label='country' width='w-1/3' value={c_country} />
                 </div>
 
                 <div className="w-full f-between gap-x-5">
@@ -224,18 +268,21 @@ const Panel = ({ IS_EDIT_PANEL }) => {
                             <span className="w-1/3">Total</span>
                         </div>
 
-                        <div className="w-full mb-5 font-bold">
+                        <div className="w-full mb-5 font-bold" id="items">
                             {/*
                                 if edit invoice panel opened , map on invoice items
                                 else return empty string 
                             */}
-                            {(items === undefined || items.length === 0) ? '' : items.map(({ name, qty, price }) =>
+                            {(items_ === undefined || items_.length === 0) ? '' : items_.map(({ name, qty, price }, i) =>
                                 <div className="w-full gap-x-4 f-between mt-2">
                                     <PanelInput width='w-1/2' mt='mt-0' value={name} />
-                                    <PanelInput width='w-1/6' mt='mt-0' value={qty} />
-                                    <PanelInput width='w-1/3' mt='mt-0' value={price} />
-                                    <span className="w-1/4 mt-2">{price * qty}</span>
-                                    <button className='w-auto'>
+                                    <PanelInput type='number' width='w-1/6' mt='mt-0' value={qty} event={updatePrice} ref_={qtyRef} />
+                                    <PanelInput type='number' width='w-1/3' mt='mt-0' value={price} event={updatePrice} ref_={priceRef} />
+                                    <span ref={totalPriceRef} className="w-1/4 mt-2">{price * qty}</span>
+                                    <button 
+                                        className='w-auto hover:opacity-50' 
+                                        onClick={() => deleteItem(i)}
+                                    >
                                         <TrashIco />
                                     </button>
                                 </div>
@@ -245,6 +292,7 @@ const Panel = ({ IS_EDIT_PANEL }) => {
 
                     <button
                         onClick={addItem}
+                        id='add-item-btn'
                         className="rounded-btn text-sm w-full text-white bg-mid-dark-blue"
                     >
                         Add Item
@@ -262,7 +310,7 @@ const Panel = ({ IS_EDIT_PANEL }) => {
                         onClick={editInvoice}
                         className="rounded-btn bg-purple text-white"
                     >
-                        Save Changes
+                        {IS_EDIT_PANEL ? 'Save Changes' : 'Create Invoice'}
                     </button>
                 </div>
             </div>

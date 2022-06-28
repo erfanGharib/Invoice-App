@@ -8,7 +8,7 @@ const InvoiceFullStatus = props => {
     const { allInvoiceData, setInoviceData, invoiceData, setAllInoviceData } = useContext(invoiceContext);
     const { tag, clientLocation, invoiceDate, projectDescription, paymentDue, clientName, items, email, status } = invoiceData;
     const { c_street, c_postCode, c_city, c_country } = clientLocation;
-
+    console.log(invoiceData);
     const deleteInvoice = () => {
         let allInvoiceData_ = typeof allInvoiceData === 'string' ? JSON.parse(allInvoiceData) : allInvoiceData;
         allInvoiceData_.splice(allInvoiceData_.indexOf(invoiceData), 1);
@@ -78,15 +78,16 @@ const InvoiceFullStatus = props => {
                         <span>Invoice Date</span>
                         <h2>{invoiceDate.day} {invoiceDate.month[0]} {invoiceDate.year}</h2>
                         <span className="mt-5">Payment Due</span>
-                        <h2>{paymentDue.day} {paymentDue.month[1]} {paymentDue.year}</h2>
+                        <h2>{paymentDue.day} {paymentDue.month[0]} {paymentDue.year}</h2>
                     </span>
 
                     <span className="flex flex-col">
                         <span>Bill to</span>
                         <h2>{clientName}</h2>
-                        <span>b4 church way</span>
-                        <span>Srod ford</span>
-                        <span>United Kingdom</span>
+                        <span>{c_street}</span>
+                        <span>{c_postCode}</span>
+                        <span>{c_city}</span>
+                        <span>{c_country}</span>
                     </span>
 
                     <span className="flex flex-col">
