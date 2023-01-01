@@ -2,11 +2,17 @@ import React, { useState } from "react";
 import { ReactComponent as SunIco } from '../assets/icons/sun.svg';
 import { ReactComponent as MoonIco } from '../assets/icons/moon.svg';
 const ThemeSwitcher = props => {
-    const [IS_DARK_THEME, setTheme] = useState(false);
+    let x = Number(localStorage.getItem('darkMode'));
+    if(x === null) x = 0;
+
+    const [IS_DARK_THEME, setTheme] = useState(x);
+
+    const htmlClass = document.querySelector('html').classList;
+    IS_DARK_THEME === 1 ? htmlClass.add('dark') : htmlClass.remove('dark');
 
     const switchTheme = () => {
-        setTheme(IS_DARK_THEME ? false : true);
-        document.querySelector('html').classList.toggle('dark')
+        localStorage.setItem('darkMode', IS_DARK_THEME === 0 ? 1 : 0);
+        setTheme(IS_DARK_THEME === 0 ? 1 : 0);
     }
 
     return (

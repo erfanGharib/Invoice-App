@@ -23,7 +23,7 @@ const Invoice = props => {
                 <strong className="uppercase tracking-wide">{tag}</strong>
             </td>
             <td style={{ gridArea: 'date' }} className="capitalize text-left sm:text-center opacity-60">Due&nbsp;&nbsp;{paymentDue.day} {paymentDue.month[0]} {paymentDue.year}</td>
-            <td style={{ gridArea: 'name' }} className="capitalize text-right sm:text-center opacity-60">{clientName}</td>
+            <td style={{ gridArea: 'name' }} className="capitalize text-right sm:text-center sm:ml-0 ml-auto opacity-60">{clientName}</td>
             <td style={{ gridArea: 'payment' }} className="font-bold text-left sm:text-center text-xl">&#163; {splitNumbers()}</td>
             <td style={{ gridArea: 'status' }} className="w-28 sm:ml-0 sm:mt-0 mt-3 ml-auto">
                 <InvoiceStatus status={status} />

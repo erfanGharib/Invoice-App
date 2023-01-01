@@ -73,17 +73,17 @@ const FilterBtn = props => {
 
     return (
         <div className="flex flex-row">
-            <div className="sm:w-32 w-24 relative sm:mr-2 my-auto flex items-center">
-                <button id="filter-btn" onClick={displayDropDownMenu} className="hover:underline font-semibold underline-offset-2 text-base">
-                    <span>Filter&nbsp;</span>
+            <div className="sm:w-32 w-20 relative sm:mr-2 my-auto flex items-center">
+                <span id="filter-btn" onClick={displayDropDownMenu} className="hover:underline font-semibold select-none underline-offset-2 cursor-pointer text-base">
+                    <span>Sort&nbsp;</span>
                     &nbsp;
                     <DownArrowIco />
-                </button>
+                </span>
 
                 <div ref={dropDownMenuRef} className="absolute hidden z-10 origin-top top-7 sm:right-0 right-4 w-full p-1.5 dark:text-dark-blue bg-mid-dark-blue text-white rounded-md dark:bg-white shadow-lg flex-col items-start justify-between">
                     {filterMethods.map(value => 
-                        <button 
-                            className="p-2 w-full hover:bg-white capitalize hover:bg-opacity-20 rounded-md" 
+                        <span 
+                            className="px-2 py-1.5 w-full hover:bg-white capitalize cursor-pointer hover:bg-opacity-20 text-sm rounded-md" 
                             key={value}
                             onClick={e => {
                                 sortInvoices(value); 
@@ -92,7 +92,7 @@ const FilterBtn = props => {
                             }}
                         >
                             {value}
-                        </button>
+                        </span>
                     )}
                 </div>
             </div>
