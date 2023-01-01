@@ -61,9 +61,6 @@ h2 {
   #new-invoice-btn::after {
     content: 'Invoice';
   }
-  #filter-btn > span::after {
-    content: 'by status';
-  }
 }
 table > * > * {
   @apply flex items-center; 

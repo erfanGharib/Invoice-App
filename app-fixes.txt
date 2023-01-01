@@ -1,6 +1,6 @@
 highlight filter option +
-create invoice -
-set invoice items -
+create invoice +
+set invoice items +
 fix responsive on mobile +
 
 status

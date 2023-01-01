@@ -72,8 +72,8 @@ const FilterBtn = props => {
     }
 
     return (
-        <div  className="flex flex-row">
-            <div className="sm:w-40 w-24 relative sm:mr-5 my-auto flex items-center">
+        <div className="flex flex-row">
+            <div className="sm:w-32 w-24 relative sm:mr-2 my-auto flex items-center">
                 <button id="filter-btn" onClick={displayDropDownMenu} className="hover:underline font-semibold underline-offset-2 text-base">
                     <span>Filter&nbsp;</span>
                     &nbsp;
