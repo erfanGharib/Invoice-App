@@ -8,7 +8,7 @@ import data from './data/invoices-data.json';
 
 let savedData;
 
-if(localStorage.length === 0) {
+if(localStorage.getItem('invoiceData') === null) {
     savedData = data;
     localStorage.setItem('invoiceData', JSON.stringify(data));
 }

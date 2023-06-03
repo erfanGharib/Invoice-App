@@ -108,3 +108,6 @@ input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   display: none;
 }
+.empty-field {
+  @apply border-rose-400 border-2 bg-rose-200;
+}

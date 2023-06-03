@@ -6,6 +6,7 @@ import { ReactComponent as TrashIco } from '../assets/icons/trash.svg';
 import { get } from '../createElement';
 import { Notyf } from "notyf";
 import 'notyf/notyf.min.css';
+import createUniqueTag from "../utils/createUniqueTag";
 
 const notyf = new Notyf({
     types: [
@@ -24,7 +25,7 @@ const panelFatherRef = React.createRef();
 const monthArr = [
     "Jan", "Feb", "Mar", "Apr", "May", "Jun",
     "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
-];         
+];
 
 const Panel = ({ IS_EDIT_PANEL }) => {
     const { setInoviceData, setAllInoviceData, invoiceData, allInvoiceData } = useContext(invoiceContext);
@@ -50,31 +51,19 @@ const Panel = ({ IS_EDIT_PANEL }) => {
         }
     }
 
-    let { tag, clientLocation, sellerLoaction, projectDescription, paymentDue, clientName, email } = invoiceData_ === undefined ? '' : {...invoiceData_};
+    let { tag, clientLocation, sellerLoaction, projectDescription, paymentDue, clientName, email } = invoiceData_ === undefined ? '' : { ...invoiceData_ };
     let { s_street, s_postCode, s_city, s_country } = sellerLoaction === undefined ? '' : { ...sellerLoaction };
     let { c_street, c_postCode, c_city, c_country } = clientLocation === undefined ? '' : { ...clientLocation };
     let { month, day, year } = paymentDue === undefined ? '' : { ...paymentDue };
     month = month === undefined ? '' : month;
 
-    if(invoiceData_.items === '') invoiceData_.items = [];
-    const [ items_, setItems ] = useState(invoiceData_.items);
+    if (invoiceData_.items === '') invoiceData_.items = [];
+    const [items_, setItems] = useState(invoiceData_.items);
 
-    let IS_ANY_ITEM_ADDED = true;
+    let IS_ANY_ITEM_ADDED = false;
     let IS_ANY_INPUT_EMPTY;
 
     // write comments
-    const createUniqueTag = () => {
-        const alphabet = 'abcdefghijklmnopqrstuvwxyz';
-        const rnd = (returnNum = true, max = 9) => {
-            let rndNum = Math.floor(Math.random() * (parseFloat(max) - parseFloat(0) + 1) + parseFloat(0));
-            if(returnNum) return rndNum;
-            return alphabet[rndNum];
-        }
-        let tag_ = rnd(false, 26) + rnd(false, 26) + rnd() + rnd() + rnd() + rnd();
-
-        if (allInvoiceData.some(value => value.tag !== tag_)) return tag_;
-        createUniqueTag();
-    }
     const addItem = () => {
         items_.push({
             name: '',
@@ -88,24 +77,32 @@ const Panel = ({ IS_EDIT_PANEL }) => {
         setItems([...items_]);
     }
     const updatePrice = () => totalPriceRef.current.innerHTML = qtyRef.current.value * priceRef.current.value;
+
     // clean codes
-    const editInvoice = () => {
-        get('.displayPanel input', true).forEach(({value, classList, offsetTop}, index, allInput) => {
+    const checkValidation = () => {
+        const allInput = get('.displayPanel input', true);
+        IS_ANY_INPUT_EMPTY = Object.entries(allInput)?.every(v => v?.[1].value !== '');
+
+        for (let index = 0; index < allInput.length; index++) {
+            const { value, classList, offsetTop } = allInput[index];
+
+            if (allInput.length < 14) {
+                IS_ANY_ITEM_ADDED = false;
+            }
+            else IS_ANY_ITEM_ADDED = true;
+
             if (value === '') {
                 classList.add('empty-field');
-                IS_ANY_INPUT_EMPTY = true;
-                panelRef.current.scroll(0, offsetTop - 40);
+                panelRef.current.scrollTo({
+                    top: offsetTop - 80,
+                    behavior: "smooth",
+                });
             }
-            else if(value !== '') {
+            else if (value !== '') {
                 classList.remove('empty-field');
-                IS_ANY_INPUT_EMPTY = false;
             }
-            if(allInput.length < 14) {
-                IS_ANY_ITEM_ADDED = false;
-                get('#add-item-btn').classList.add('shake');
-                setTimeout(() => get('#add-item-btn').classList.remove('shake'), 600);
-            }
-            else if(!IS_ANY_INPUT_EMPTY) {
+
+            else if (Object.entries(allInput)?.every(v => v?.[1].value !== '')) {
                 switch (index) {
                     case 0:
                         sellerLoaction.s_street = value;
@@ -159,36 +156,47 @@ const Panel = ({ IS_EDIT_PANEL }) => {
                         get('#items > div', true).forEach((v, index, arr) => {
                             v.childNodes.forEach((v, i) => {
                                 const value_ = v.querySelector('input') === null ? '' : v.querySelector('input').value;
-                                if(i === 0) newItem[index].name = value_;
-                                if(i === 1) newItem[index].qty = value_;
-                                if(i === 2) newItem[index].price = value_;
+                                if (i === 0) newItem[index].name = value_;
+                                if (i === 1) newItem[index].qty = value_;
+                                if (i === 2) newItem[index].price = value_;
                             });
                         });
-                        console.log(newItem);
+
                         invoiceData_.items = newItem;
                         break;
                     default: break;
                 }
             }
-        });
+        }
+    }
+    const editInvoice = () => {
+        checkValidation();
 
-        if(!IS_ANY_ITEM_ADDED) notyf.error('No Item Added!');
-        if(IS_ANY_INPUT_EMPTY) notyf.error('Some Fields Are Empty!');
-        else if(IS_ANY_ITEM_ADDED && !IS_ANY_INPUT_EMPTY && !IS_EDIT_PANEL) {
+        if (!IS_ANY_ITEM_ADDED) {
+            get('#add-item-btn').classList.add('shake');
+            setTimeout(() => get('#add-item-btn').classList.remove('shake'), 600);
+            return notyf.error('No Item Added!');
+        }
+        if (!IS_ANY_INPUT_EMPTY) {
+            return notyf.error('Some Fields Are Empty!');
+        }
+        else if (IS_ANY_ITEM_ADDED && IS_ANY_INPUT_EMPTY && !IS_EDIT_PANEL) {
             invoiceData_.status = 0;
-            invoiceData_.tag = createUniqueTag();
-            
+            invoiceData_.tag = createUniqueTag(allInvoiceData);
+
             allInvoiceData.push(invoiceData_);
             setAllInoviceData([...allInvoiceData]);
             saveData(allInvoiceData);
-    
+
             notyf.success('Invoice Created Successfuly!');
-            displayPanel();
+
+            return displayPanel();
         }
-        else if(IS_ANY_ITEM_ADDED && !IS_ANY_INPUT_EMPTY) {
+        else if (IS_ANY_ITEM_ADDED && IS_ANY_INPUT_EMPTY) {
             setInoviceData(invoiceData_);
             saveData(allInvoiceData);
             notyf.success('Changes Saved Successfuly!');
+
             displayPanel();
         }
     }
@@ -202,7 +210,7 @@ const Panel = ({ IS_EDIT_PANEL }) => {
 
             <div
                 ref={panelRef}
-                className="left-0 md:left-14 top-19 md:top-0 overflow-y-scroll flex-col items-start flex pl-5 pr-5 md:pl-14 md:pr-10 pb-8 pt-24 md:pt-8 transform -translate-x-full duration-300 transition-transform relative z-20 h-full dark:bg-dark-blue bg-white w-full sm:w-2/3 md:rounded-tr-3xl md:rounded-br-3xl"
+                className="left-0 md:left-14 top-19 md:top-0 overflow-y-scroll flex-col items-start flex pl-5 pr-5 md:pl-14 md:pr-10 pb-8 pt-24 md:pt-8 transform -translate-x-full duration-300 transition-transform relative z-20 h-full dark:bg-dark-blue bg-white w-full md:w-1/2 md:rounded-tr-3xl md:rounded-br-3xl"
             >
                 <div className="w-full text-right mb-4">
                     <button className="normal-btn" onClick={displayPanel}>Close</button>
@@ -274,13 +282,13 @@ const Panel = ({ IS_EDIT_PANEL }) => {
                                 else return empty string 
                             */}
                             {(items_ === undefined || items_.length === 0) ? '' : items_.map(({ name, qty, price }, i) =>
-                                <div className="w-full gap-x-4 f-between mt-2">
+                                <div key={i} className="w-full gap-x-4 f-between mt-2 item-list">
                                     <PanelInput width='w-1/2' mt='mt-0' value={name} />
                                     <PanelInput type='number' width='w-1/6' mt='mt-0' value={qty} event={updatePrice} ref_={qtyRef} />
                                     <PanelInput type='number' width='w-1/3' mt='mt-0' value={price} event={updatePrice} ref_={priceRef} />
                                     <span ref={totalPriceRef} className="w-1/4 mt-2">{price * qty}</span>
-                                    <button 
-                                        className='w-auto hover:opacity-50' 
+                                    <button
+                                        className='w-auto hover:opacity-50'
                                         onClick={() => deleteItem(i)}
                                     >
                                         <TrashIco />
